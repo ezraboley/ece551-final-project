@@ -1,0 +1,146 @@
+# Compile of inert_intf.sv was successful.
+vsim -gui work.inert_intf_tb
+# vsim -gui work.inert_intf_tb 
+# Start time: 18:59:56 on Dec 02,2018
+# Loading sv_std.std
+# Loading work.inert_intf_tb
+# Loading work.SegwayModel
+# Loading work.inert_intf
+# Loading work.SPI_mstr16
+# Loading work.inertial_integrator
+add wave -position insertpoint sim:/inert_intf_tb/iDUT/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: eboley  Hostname: WIN-8074  ProcessID: 1832
+# 
+#           Attempting to use alternate WLF file "./wlfthahi2j".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlfthahi2j
+# 
+add wave -position insertpoint sim:/inert_intf_tb/*
+run -all
+# ** Note: $stop    : I:/ece551/ece551/ex21/inert_intf_tb.sv(38)
+#    Time: 3814905 ps  Iteration: 3  Instance: /inert_intf_tb
+# Break in Module inert_intf_tb at I:/ece551/ece551/ex21/inert_intf_tb.sv line 38
+# WARNING: No extended dataflow license exists
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Error: invalid command name "::.main_pane.dataflow.interior.cs.body.pw.df.c"
+# Compile of inert_intf.sv was successful.
+vsim -gui work.inert_intf_tb
+# End time: 19:05:38 on Dec 02,2018, Elapsed time: 0:05:42
+# Errors: 14, Warnings: 3
+# vsim -gui work.inert_intf_tb 
+# Start time: 19:05:38 on Dec 02,2018
+# Loading sv_std.std
+# Loading work.inert_intf_tb
+# Loading work.SegwayModel
+# Loading work.inert_intf
+# Loading work.SPI_mstr16
+# Loading work.inertial_integrator
+add wave -position insertpoint sim:/inert_intf_tb/iDUT/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: eboley  Hostname: WIN-8074  ProcessID: 1832
+# 
+#           Attempting to use alternate WLF file "./wlft3k6zib".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlft3k6zib
+# 
+add wave -position insertpoint sim:/inert_intf_tb/*
+run -all
+# ** Note: $stop    : I:/ece551/ece551/ex21/inert_intf_tb.sv(38)
+#    Time: 3814905 ps  Iteration: 3  Instance: /inert_intf_tb
+# Break in Module inert_intf_tb at I:/ece551/ece551/ex21/inert_intf_tb.sv line 38
+# WARNING: No extended dataflow license exists
+# Compile of inert_intf.sv was successful.
+restart -f
+# Loading work.inert_intf
+run -all
+# ** Note: $stop    : I:/ece551/ece551/ex21/inert_intf_tb.sv(38)
+#    Time: 3814905 ps  Iteration: 3  Instance: /inert_intf_tb
+# Break in Module inert_intf_tb at I:/ece551/ece551/ex21/inert_intf_tb.sv line 38
+vsim work.SPI_mstr16
+# End time: 19:26:16 on Dec 02,2018, Elapsed time: 0:20:38
+# Errors: 0, Warnings: 3
+# vsim work.SPI_mstr16 
+# Start time: 19:26:16 on Dec 02,2018
+# Loading sv_std.std
+# Loading work.SPI_mstr16
+# Compile of inert_intf.sv failed with 3 errors.
+# Compile of inert_intf.sv failed with 3 errors.
+# Compile of inert_intf.sv failed with 3 errors.
+# Compile of inert_intf.sv was successful.
+quit -sim
+vsim work.inert_intf_tb
+# End time: 19:50:58 on Dec 02,2018, Elapsed time: 0:24:42
+# Errors: 0, Warnings: 0
+# vsim work.inert_intf_tb 
+# Start time: 19:50:58 on Dec 02,2018
+# Loading sv_std.std
+# Loading work.inert_intf_tb
+# Loading work.SegwayModel
+# Loading work.inert_intf
+# Loading work.SPI_mstr16
+# Loading work.inertial_integrator
+add wave -position insertpoint sim:/inert_intf_tb/iDUT/*
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: eboley  Hostname: WIN-8074  ProcessID: 1832
+# 
+#           Attempting to use alternate WLF file "./wlftcv562e".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlftcv562e
+# 
+add wave -position insertpoint sim:/inert_intf_tb/*
+add wave -position insertpoint sim:/inert_intf_tb/MODEL/*
+run -all
+# ** Note: $stop    : I:/ece551/ece551/ex21/inert_intf_tb.sv(38)
+#    Time: 3814905 ps  Iteration: 3  Instance: /inert_intf_tb
+# Break in Module inert_intf_tb at I:/ece551/ece551/ex21/inert_intf_tb.sv line 38
+# unknown option "-rowmargin"
+# Compile of inert_intf.sv was successful.
+restart -f
+# Loading work.inert_intf
+run -all
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: $stop    : I:/ece551/ece551/ex21/inert_intf_tb.sv(38)
+#    Time: 13824465 ps  Iteration: 3  Instance: /inert_intf_tb
+# Break in Module inert_intf_tb at I:/ece551/ece551/ex21/inert_intf_tb.sv line 38
+# Compile of inert_intf.sv was successful.
+# Compile of inert_intf.sv was successful.
+restart -f
+# Loading work.inert_intf
+run -all
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: $stop    : I:/ece551/ece551/ex21/inert_intf_tb.sv(38)
+#    Time: 3978745 ps  Iteration: 3  Instance: /inert_intf_tb
+# Break in Module inert_intf_tb at I:/ece551/ece551/ex21/inert_intf_tb.sv line 38
+# Compile of inert_intf_tb.sv was successful.
+restart -f
+# Loading work.inert_intf_tb
+run -all
+# GetModuleFileName: The specified module could not be found.
+# 
+# 
+# ** Note: $stop    : I:/ece551/ece551/ex21/inert_intf_tb.sv(38)
+#    Time: 3978745 ps  Iteration: 3  Instance: /inert_intf_tb
+# Break in Module inert_intf_tb at I:/ece551/ece551/ex21/inert_intf_tb.sv line 38

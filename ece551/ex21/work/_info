@@ -1,0 +1,127 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+d/userspace/e/eboley/ece551/ece551/ex21
+vinert_intf
+Z0 DXx6 sv_std 3 std 0 22 WmjPaeP=7F5?QFXzJ>D[Q2
+!s110 1543804184
+!i10b 1
+!s100 >A>m;Y0k@oTb71]MWCWfT1
+IzDGP0JGG@hW;;Xgd8WnX72
+Z1 VDg1SIo80bB@j0V0VzS_@n1
+!s105 inert_intf_sv_unit
+S1
+Z2 dI:/ece551/ece551/ex21
+w1543804175
+8I:/ece551/ece551/ex21/inert_intf.sv
+FI:/ece551/ece551/ex21/inert_intf.sv
+L0 1
+Z3 OV;L;10.4d;61
+r1
+!s85 0
+31
+!s108 1543804184.000000
+!s107 I:/ece551/ece551/ex21/inert_intf.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ece551/ece551/ex21/inert_intf.sv|
+!i113 1
+Z4 o-work work -sv
+vinert_intf_tb
+R0
+!s110 1543804260
+!i10b 1
+!s100 32hB9Fhf]GGocaKH]hXc20
+IJZ:PNPc>8dz?cRQ=]HF@c1
+R1
+!s105 inert_intf_tb_sv_unit
+S1
+R2
+w1543804254
+8I:/ece551/ece551/ex21/inert_intf_tb.sv
+FI:/ece551/ece551/ex21/inert_intf_tb.sv
+L0 1
+R3
+r1
+!s85 0
+31
+!s108 1543804260.000000
+!s107 I:/ece551/ece551/ex21/inert_intf_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ece551/ece551/ex21/inert_intf_tb.sv|
+!i113 1
+R4
+vinertial_integrator
+R0
+Z5 !s110 1543596286
+!i10b 1
+!s100 <9]X>jTO`4[H[]`N_WA_01
+I7j_E`5H]T[<Ea@mdP<US`1
+R1
+!s105 inertial_integrator_sv_unit
+S1
+R2
+w1543595427
+8I:/ece551/ece551/ex21/inertial_integrator.sv
+FI:/ece551/ece551/ex21/inertial_integrator.sv
+L0 1
+R3
+r1
+!s85 0
+31
+!s108 1543596285.000000
+!s107 I:/ece551/ece551/ex21/inertial_integrator.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ece551/ece551/ex21/inertial_integrator.sv|
+!i113 1
+R4
+vSegwayModel
+R0
+!s110 1543596284
+!i10b 1
+!s100 ^XPDXPPC?dhUYVaYWzWc:3
+Ij5P@_=2?S2Wb6MfODLO3C2
+R1
+!s105 SegwayModel_sv_unit
+S1
+R2
+w1543540378
+8I:/ece551/ece551/ex21/SegwayModel.sv
+FI:/ece551/ece551/ex21/SegwayModel.sv
+L0 1
+R3
+r1
+!s85 0
+31
+!s108 1543596284.000000
+!s107 I:/ece551/ece551/ex21/SegwayModel.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ece551/ece551/ex21/SegwayModel.sv|
+!i113 1
+R4
+n@segway@model
+vSPI_mstr16
+R0
+R5
+!i10b 1
+!s100 B<VEzS=beCD4m2_5b>haM0
+ID65kf6C@Rjg1K<nKJ5kid2
+R1
+!s105 SPI_mstr16_sv_unit
+S1
+R2
+w1543542920
+8I:/ece551/ece551/ex21/SPI_mstr16.sv
+FI:/ece551/ece551/ex21/SPI_mstr16.sv
+L0 1
+R3
+r1
+!s85 0
+31
+!s108 1543596286.000000
+!s107 I:/ece551/ece551/ex21/SPI_mstr16.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ece551/ece551/ex21/SPI_mstr16.sv|
+!i113 1
+R4
+n@s@p@i_mstr16
