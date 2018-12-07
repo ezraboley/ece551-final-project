@@ -1,8 +1,6 @@
-module en_steer(clk,rst_n,tmr_full,lft_ld, rght_ld,clr_tmr,en_steer,rider_off);
-
+module en_steer(clk, rst_n, lft_ld, rght_ld, en_steer, rider_off);
   input clk;				// 50MHz clock
   input rst_n;				// Active low asynch reset
-  input tmr_full;			// asserted when timer reaches 1.3 sec
   wire sum_gt_min;			// asserted when left and right load cells together exceed min rider weight
   //wire sum_lt_min;
   /////////////////////////////////////////////////////////////////////////////
@@ -26,88 +24,79 @@ module en_steer(clk,rst_n,tmr_full,lft_ld, rght_ld,clr_tmr,en_steer,rider_off);
   wire [11:0] diff;		// difference of left and right loads
   wire diff_gt_1_4;		// asserted if load cell difference exceeds 1/4 sum (rider not situated)
   wire diff_gt_15_16;		// asserted if load cell difference is great (rider stepping off)
-  output logic clr_tmr;		// clears the 1.3sec timer
   output logic en_steer;	// enables steering (goes to balance_cntrl)
   output logic rider_off;	// pulses high for one clock on transition back to initial state
 
   localparam MIN_RIDER_WEIGHT = 12'h200;
+  parameter fast_sim = 0;
+  reg clr_tmr, tmr_full;
+
+  reg[25:0] tmr;
 
   //assign statements
   assign diff = lft_ld - rght_ld;
   assign diff_gt_1_4 = diff[11] ? ((~diff + 1) > (lft_ld + rght_ld)/4 ? 1 : 0) : diff > (lft_ld + rght_ld)/4 ? 1 : 0;
   assign diff_gt_15_16 = diff[11] ? ((~diff + 1) > (lft_ld + rght_ld)*15/16 ? 1 : 0) : diff > (lft_ld + rght_ld)*15/16 ? 1 : 0;
   assign sum_gt_min = (lft_ld + rght_ld) > MIN_RIDER_WEIGHT ? 1 : 0;
-  //assign sum_lt_min = (lft_ld + rght_ld) < MIN_RIDER_WEIGHT ? 1 : 0;
-  
+  assign tmr_full = fast_sim ? &tmr[14:0] : &tmr[25:0]; 
+
   // You fill out the rest...use good SM coding practices ///
-  typedef enum reg [1:0] {START, STEER, WAIT} state_t;
-  state_t state, nxt_state; 	
+  typedef enum reg [1:0] {IDLE, WAIT, STEER_EN} state_t;
+  state_t state, next_state; 	
   
+  always@(posedge clk) begin
+	if(clr_tmr) tmr <= 0;
+	else tmr <= tmr + 1;
+  end
+
   // infer state ffs //
   always_ff @(posedge clk, negedge rst_n) 
     if (!rst_n)    
-	state <= START;
+	state <= IDLE;
     else    
-	state <= nxt_state;
+	state <= next_state;
   
   always_comb begin
-    ///// default outputs /////
-    en_steer = 0;
-    rider_off = 0;
-    clr_tmr = 0;
-    nxt_state = START;
-    case (state)
-      STEER : if (diff_gt_15_16 && sum_gt_min) begin
-	en_steer = 0;
-	clr_tmr = 1;
-	nxt_state = WAIT;
-      end else if(sum_gt_min && !(diff_gt_15_16)) begin
-	en_steer = 1;
-	rider_off = 0;
-	nxt_state = STEER;
-      end else begin
-	en_steer = 0;
-	clr_tmr = 1;
-	rider_off = 1;
-	nxt_state = START;
+	//Define default values
+		clr_tmr = 0;
+		en_steer = 0;
+		rider_off = 0;
+		next_state = IDLE;
+		case (state)
+			IDLE : 	if(sum_gt_min) begin //Wait for rider to get on
+				 next_state = WAIT;
+				 clr_tmr = 1;
+				end
+				else next_state = state;
+			WAIT : if(~sum_gt_min) begin //Check if rider has fallen/stepped off
+				 next_state = IDLE;
+				 rider_off = 1;
+				end
+				else if(diff_gt_1_4) begin //Wait for rider to stabilize
+				 next_state = WAIT;
+				 clr_tmr = 1;
+				end
+				else if(tmr_full) begin //Enable steering once rider is stable
+				 next_state = STEER_EN;
+				 en_steer = 1;
+				end
+				else next_state = state;
+			STEER_EN : if(~sum_gt_min) begin //Check if rider has fallen/stepped off 
+				 next_state = IDLE;
+				 rider_off = 1;
+				end
+				else if(diff_gt_15_16) begin //Check if rider has gotten off
+				 next_state = WAIT;
+				 clr_tmr = 1;
+				end
+				else begin //Keep steering enabled if rider stays on
+					en_steer = 1;
+					next_state = state;
+				end
+			default next_state = IDLE;
+		endcase
+	end
 
-      end
-
-      WAIT : if(!sum_gt_min) begin
-	en_steer = 0;
-	clr_tmr = 1;
-	rider_off = 1;
-	nxt_state = START;
-      end else if(diff_gt_1_4) begin
-	en_steer = 0;
-	clr_tmr = 1;
-	rider_off = 0;
-	nxt_state = WAIT;
-      end else if(tmr_full) begin
-	en_steer = 1;
-	rider_off = 0;
-	nxt_state = STEER;
-      end else begin
-	nxt_state = WAIT;
-      end 
-
-
-    ///// START /////
-    START : if (sum_gt_min) begin
-	en_steer = 0;
-	clr_tmr = 1;
-	nxt_state = WAIT;
-    end else begin
-	//en_steer = 0;
-	nxt_state = START;
-    end
-    
-    ////// default /////
-    default :
-      nxt_state = START;
-   
-    endcase
-  end
     
   
 endmodule

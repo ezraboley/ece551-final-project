@@ -1,13 +1,69 @@
 module en_steer_tb();
-	reg clk,r rst_n, tmr_full, nxt;
-	reg [11:0] lft_ld, rght_ld, batt;
-	wire clr_tmr, en_steer, rider_off, SS_n, SCLK, MOSI, MISO;
+	reg clk, rst_n, nxt;
+	reg [11:0] lft_ld, rght_ld;
+	wire en_steer, rider_off;
 
-	en_steer iDUT(.clk(clk), .rst_n(rst_n), .tmr_full(tmr_full), .lft_ld(lft_ld), .rght_ld(rght_ld), .clr_tmr(clr_tmr), .en_steer(en_steer), .rider_off(rider_off));
-	A2D_intf a2d(.clk(clk), .rst_n(rst_n), .nxt(nxt), .lft_ld(lft_ld), .rght_ld(rght_ld), .batt(batt), .SS_n(SS_n), .SCLK(SCLK), .MOSI(MOSI), .MISO(MISO));
+	en_steer  #(.fast_sim(1)) iDUT (.clk(clk), .rst_n(rst_n), .lft_ld(lft_ld), .rght_ld(rght_ld), .en_steer(en_steer), .rider_off(rider_off));
 
-	initial clk = 0;
+	localparam MIN_RIDER_WEIGHT = 12'h200;
 
+	initial begin
+		clk = 0;
+		rst_n = 0;
+		nxt = 0;
+		@(posedge clk);
+		@(negedge clk);
+		rst_n = 1;
+
+		@(posedge clk);
+		lft_ld = 12'h1A6;
+		rght_ld = 12'h1A0;
+
+		fork begin : timeout1
+			repeat(170000) @(posedge clk);
+			$display("Timeout waiting for en_steer signal");
+			$stop();
+		end
+		begin
+			@(posedge en_steer);
+			disable timeout1;
+		end
+		join
+		if(!en_steer) begin
+			$display("Error, en_steer should be asserted here.");
+			$stop();
+		end
+		if(rider_off) begin
+			$display("Error, rider_off should NOT be asserted here.");
+			$stop();
+		end
+
+		lft_ld = 12'h201; 
+		rght_ld = 0;
+
+		fork begin : timeout2
+			repeat(170000) @(posedge clk);
+			$display("Timeout waiting for rider_off signal");
+			$stop();
+		end
+		begin
+			@(posedge rider_off);
+			disable timeout2;
+		end
+		join
+
+		if(en_steer) begin
+			$display("Error, en_steer should NOT be asserted here.");
+			$stop();
+		end 
+		if(!rider_off) begin
+			$display("Error, rider_off should be asserted here.");
+			$stop();
+		end
+
+		$display("Tests passed.");	
+	end
 
 	always #5 clk = ~clk;
+
 endmodule
