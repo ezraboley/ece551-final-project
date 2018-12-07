@@ -1,0 +1,33 @@
+read_file -format sverilog { ./SPI_mstr16.sv }
+
+set current_design SPI_mstr16
+
+create_clock -name "clk" -period 20 -waveform {0 10} {clk}
+set_dont_touch_network [find port clk]
+
+set prim_inputs [remove_from_collection [all_inputs] [find port clk]]
+
+set_input_delay -clock clk 0.7 $prim_inputs
+
+set_driving_cell -lib_cell ND2D2BWP -library tcbn40lpb2ptc $prim_inputs
+set_drive 0.1 rst_n
+
+set_output_delay -clock clk 0.55 [all_outputs]
+set_load 0.15 [all_outputs]
+
+set_wire_load_model -name TSMC32K_Lowk_Conservative -library tcbn40lpbwptc
+set_max_transition 0.1 [current_design]
+
+compile -map_effort medium
+check_design
+
+ungroup -all -flatten
+
+compile -map_effort high
+check_design
+
+report_timing -delay max > SPI_mstr_max_delay.txt
+report_timing -delay min > SPI_mstr_min_delay.txt
+report_area > SPI_mstr_area.txt
+write -format verilog SPI_mstr16 -output SPI_mstr16.vg
+
