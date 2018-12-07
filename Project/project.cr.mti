@@ -1,0 +1,59 @@
+I:/ECE551/Project/mtr_drv.sv {1 {vlog -work work -sv -stats=none I:/ECE551/Project/mtr_drv.sv
+Model Technology ModelSim ALTERA vlog 10.4d Compiler 2015.12 Dec 30 2015
+-- Compiling module mtr_drv
+
+Top level modules:
+	mtr_drv
+
+} {} {}} I:/ECE551/Project/A2D_intf.sv {1 {vlog -work work -sv -stats=none I:/ECE551/Project/A2D_intf.sv
+Model Technology ModelSim ALTERA vlog 10.4d Compiler 2015.12 Dec 30 2015
+-- Compiling module A2D_intf
+
+Top level modules:
+	A2D_intf
+
+} {} {}} I:/ECE551/Project/SPI_mstr16.sv {1 {vlog -work work -sv -stats=none I:/ECE551/Project/SPI_mstr16.sv
+Model Technology ModelSim ALTERA vlog 10.4d Compiler 2015.12 Dec 30 2015
+-- Compiling module SPI_mstr16
+
+Top level modules:
+	SPI_mstr16
+
+} {} {}} I:/ECE551/Project/balance_cntrl.sv {1 {vlog -work work -sv -stats=none I:/ECE551/Project/balance_cntrl.sv
+Model Technology ModelSim ALTERA vlog 10.4d Compiler 2015.12 Dec 30 2015
+-- Compiling module balance_cntrl
+
+Top level modules:
+	balance_cntrl
+
+} {} {}} I:/ECE551/Project/steer_en_SM.sv {1 {vlog -work work -sv -stats=none I:/ECE551/Project/steer_en_SM.sv
+Model Technology ModelSim ALTERA vlog 10.4d Compiler 2015.12 Dec 30 2015
+-- Compiling module steer_en_SM
+
+Top level modules:
+	steer_en_SM
+
+} {} {}} I:/ECE551/Project/steer_en.sv {1 {vlog -work work -sv -stats=none I:/ECE551/Project/steer_en.sv
+Model Technology ModelSim ALTERA vlog 10.4d Compiler 2015.12 Dec 30 2015
+-- Compiling module steer_en
+
+Top level modules:
+	steer_en
+
+} {} {}} I:/ECE551/Project/rst_synch.sv {1 {vlog -work work -sv -stats=none I:/ECE551/Project/rst_synch.sv
+Model Technology ModelSim ALTERA vlog 10.4d Compiler 2015.12 Dec 30 2015
+-- Compiling module rst_synch
+
+Top level modules:
+	rst_synch
+
+} {} {}} I:/ECE551/Project/Segway_tb.sv {0 {vlog -work work -sv -stats=none I:/ECE551/Project/Segway_tb.sv
+Model Technology ModelSim ALTERA vlog 10.4d Compiler 2015.12 Dec 30 2015
+-- Compiling module Segway_tb
+** Error: (vlog-13069) I:/ECE551/Project/Segway_tb.sv(34): near "this": syntax error, unexpected this, expecting ';'.
+
+** Error: (vlog-13069) I:/ECE551/Project/Segway_tb.sv(62): near ".": syntax error, unexpected '.'.
+
+** Error: I:/ECE551/Project/Segway_tb.sv(74): Cannot open `include file "tb_tasks.v".
+
+} {4.0 5.0 6.0 7.0 8.0 9.0} {}}
