@@ -35,10 +35,14 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
   wire [11:0] batt;			// battery value supplied to en_steer from A2D intf
   wire nxt;				// tells the A2D intf to begin next conversion
   wire [10:0] lft_spd;			// speed of left motor send into motor driver
+  wire [15:0] ptch;			// value for pitch of the segway
+  wire rider_off;			// high when the rider is no longer on the Segway
   wire [10:0] rght_spd;			// speed of right motor send into motor driver
   wire lft_rev;				// tells motor driver which direction to drive left motor
   wire rght_rev;			// tells motor driver which direction to drive right motor
-  wire moving;				// signal for normal operation when moving
+  wire [10:0] lft_spd;			// speed of the left motor
+  wire [10:0] rght_spd;			// speed of the right motor
+  wire en_steer;			// signal for normal operation when moving
   wire ovr_spd;				// signals that segway is moving too fast
   wire batt_low;			// signals that battery is running low
   // You will need to declare a bunch more interanl signals to hook up everything
@@ -66,9 +70,9 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
   //////////////////////////////////////////////////////
   
   // assign statements for piezo inputs
-  assign moving = ;
+
   assign ovr_spd = ;
-  assign batt_low = ;
+  assign batt_low = batt < 12'h800 ? 1 : 0;
 
   ///////////////////////////
   // Instantiate AUTH_blk //
@@ -93,7 +97,8 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
   ///////////////////////////////
   // Instantiate piezo driver //
   ///////////////////////////// 
-  piezo iPIZZA(.clk(clk), .rst_n(rst_n), .batt_low(batt_low), .ovr_spd(ovr_spd), .moving(moving), .piezo(piezo), .piezo_n(piezo_n));
+  piezo iPIZZA(.clk(clk), .rst_n(rst_n), .batt_low(batt_low), .ovr_spd(ovr_spd), 
+    .en_steer(en_steer), .piezo(piezo), .piezo_n(piezo_n));
 
   //////////////////////////////////
   // Instantiate balance control //
