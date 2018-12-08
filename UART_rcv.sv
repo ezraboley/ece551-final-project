@@ -79,12 +79,14 @@ module UART_rcv(RX, clk, rst_n, clr_rdy, rx_data, rdy);
 
 	//Double flop for metastability
 	always @(posedge clk, negedge rst_n) begin
-		if(!rst_n) q <= 0;
-		else if(preset) q <= 1;
+		if(!rst_n) begin
+			q <= 1;
+			ff_rx <= 1;
+		end
 		else begin
 			q <= RX;
+			ff_rx <= q;
 		end
-		ff_rx <= q;
 	end
 
 endmodule
