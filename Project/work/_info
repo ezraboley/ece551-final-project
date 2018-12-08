@@ -10,90 +10,114 @@ cModel Technology
 dC:/ProgramData/App-V/2191B702-5279-4048-91BA-BCF8F2A20B49/3C5B5D32-C303-48A2-8738-F357EDE80167/Root/examples
 vA2D_intf
 Z0 DXx6 sv_std 3 std 0 22 WmjPaeP=7F5?QFXzJ>D[Q2
-!s110 1544148614
+Z1 !s110 1544303383
 !i10b 1
 !s100 G1zX=E^d?:_>hAJ[=SIZN0
-IA_BOS8Xgb;0=5Z@zH>i;73
-Z1 VDg1SIo80bB@j0V0VzS_@n1
+I?fi^==a:UO_gI>cehPL591
+Z2 VDg1SIo80bB@j0V0VzS_@n1
 !s105 A2D_intf_sv_unit
 S1
-Z2 dI:/ECE551/Project
-w1541784245
-8I:/ECE551/Project/A2D_intf.sv
-FI:/ECE551/Project/A2D_intf.sv
+Z3 dI:/ECE551/Project_git/ece551-final-project/Project
+Z4 w1544199945
+8I:/ECE551/Project_git/ece551-final-project/Project/A2D_intf.sv
+FI:/ECE551/Project_git/ece551-final-project/Project/A2D_intf.sv
 L0 1
-Z3 OV;L;10.4d;61
+Z5 OV;L;10.4d;61
 r1
 !s85 0
 31
-!s108 1544148614.000000
-!s107 I:/ECE551/Project/A2D_intf.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project/A2D_intf.sv|
+!s108 1544303382.000000
+!s107 I:/ECE551/Project_git/ece551-final-project/Project/A2D_intf.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project_git/ece551-final-project/Project/A2D_intf.sv|
 !i113 1
-Z4 o-work work -sv -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z6 o-work work -sv -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 n@a2@d_intf
 vADC128S
 R0
-!s110 1544148615
-!i10b 1
-!s100 lhE^bPB^IlkJ7fo<JUR8`0
-Ic3LD?X:FSkP0O4:HZoQZY1
 R1
+!i10b 1
+!s100 6hhBF]@OmWFNbF9kJcK6J3
+I[N835Q_DF_8FVFaf1[ml`1
+R2
 !s105 ADC128S_sv_unit
 S1
-R2
-w1540994262
-8I:/ECE551/Project/ADC128S.sv
-FI:/ECE551/Project/ADC128S.sv
-L0 1
 R3
+R4
+8I:/ECE551/Project_git/ece551-final-project/Project/ADC128S.sv
+FI:/ECE551/Project_git/ece551-final-project/Project/ADC128S.sv
+L0 1
+R5
 r1
 !s85 0
 31
-Z5 !s108 1544148615.000000
-!s107 I:/ECE551/Project/ADC128S.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project/ADC128S.sv|
+!s108 1544303383.000000
+!s107 I:/ECE551/Project_git/ece551-final-project/Project/ADC128S.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project_git/ece551-final-project/Project/ADC128S.sv|
 !i113 1
-R4
+R6
 n@a@d@c128@s
+vAuth_blk
+R0
+!s110 1544303384
+!i10b 1
+!s100 UiONn4OE4F:jhXg[7lTaO3
+IW78:bRC75=SdZRS`FK6UW0
+R2
+!s105 Auth_blk_sv_unit
+S1
+R3
+R4
+8I:/ECE551/Project_git/ece551-final-project/Project/Auth_blk.sv
+FI:/ECE551/Project_git/ece551-final-project/Project/Auth_blk.sv
+L0 1
+R5
+r1
+!s85 0
+31
+!s108 1544303384.000000
+!s107 I:/ECE551/Project_git/ece551-final-project/Project/Auth_blk.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project_git/ece551-final-project/Project/Auth_blk.sv|
+!i113 1
+R6
+n@auth_blk
 vbalance_cntrl
 R0
-Z6 !s110 1544148616
+!s110 1544304968
 !i10b 1
-!s100 zWc9nW8]D=Q7cQik0m2;D3
-I2z>5`V2UJnM53[Wl3JgXO0
-R1
+!s100 dK?Blk>Y:Iznf?^SZ8a:10
+I00V7:6F57Yk2R9kS3B]201
+R2
 !s105 balance_cntrl_sv_unit
 S1
-R2
-w1543853760
-8I:/ECE551/Project/balance_cntrl.sv
-FI:/ECE551/Project/balance_cntrl.sv
-L0 1
 R3
+w1544304963
+8I:/ECE551/Project_git/ece551-final-project/Project/balance_cntrl.sv
+FI:/ECE551/Project_git/ece551-final-project/Project/balance_cntrl.sv
+L0 1
+R5
 r1
 !s85 0
 31
-R5
-!s107 I:/ECE551/Project/balance_cntrl.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project/balance_cntrl.sv|
+!s108 1544304968.000000
+!s107 I:/ECE551/Project_git/ece551-final-project/Project/balance_cntrl.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project_git/ece551-final-project/Project/balance_cntrl.sv|
 !i113 1
-R4
+R6
 ven_steer
 R0
 !s110 1544146451
 !i10b 1
 !s100 czMDA?2GR`fzlF?W?=@Pj0
 InV::GZE>iNKFF<kk]XHVA0
-R1
+R2
 !s105 en_steer_sv_unit
 S1
-R2
+Z7 dI:/ECE551/Project
 w1544028532
 8I:/ECE551/Project/en_steer.sv
 FI:/ECE551/Project/en_steer.sv
 L0 1
-R3
+R5
 r1
 !s85 0
 31
@@ -101,136 +125,229 @@ r1
 !s107 I:/ECE551/Project/en_steer.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project/en_steer.sv|
 !i113 1
+R6
+vinert_intf
+R0
+Z8 !s110 1544303385
+!i10b 1
+!s100 ^RE3@A=@^eU]Cnb<9bGIn0
+I5zRYz3a;Zc?]Q>_N>PfHk0
+R2
+!s105 inert_intf_sv_unit
+S1
+R3
 R4
+8I:/ECE551/Project_git/ece551-final-project/Project/inert_intf.sv
+FI:/ECE551/Project_git/ece551-final-project/Project/inert_intf.sv
+L0 1
+R5
+r1
+!s85 0
+31
+Z9 !s108 1544303385.000000
+!s107 I:/ECE551/Project_git/ece551-final-project/Project/inert_intf.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project_git/ece551-final-project/Project/inert_intf.sv|
+!i113 1
+R6
+vinertial_integrator
+R0
+R8
+!i10b 1
+!s100 fm=`zfDh<8hF;Vc;iVoTL1
+Ika=>ac?`zgFQA]1K6TXfb1
+R2
+!s105 inertial_integrator_sv_unit
+S1
+R3
+R4
+8I:/ECE551/Project_git/ece551-final-project/Project/inertial_integrator.sv
+FI:/ECE551/Project_git/ece551-final-project/Project/inertial_integrator.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R9
+!s107 I:/ECE551/Project_git/ece551-final-project/Project/inertial_integrator.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project_git/ece551-final-project/Project/inertial_integrator.sv|
+!i113 1
+R6
 vmtr_drv
 R0
-R6
+Z10 !s110 1544303386
 !i10b 1
 !s100 cN9NkYf5`Un;<HmE`L6Zo2
-IWfzECdVJ]3iY1_8j;]2l;1
-R1
+I1XWCm8O<JO:5>_^QU@D@=3
+R2
 !s105 mtr_drv_sv_unit
 S1
-R2
-w1541366477
-8I:/ECE551/Project/mtr_drv.sv
-FI:/ECE551/Project/mtr_drv.sv
-L0 1
 R3
+R4
+8I:/ECE551/Project_git/ece551-final-project/Project/mtr_drv.sv
+FI:/ECE551/Project_git/ece551-final-project/Project/mtr_drv.sv
+L0 1
+R5
 r1
 !s85 0
 31
-!s108 1544148616.000000
-!s107 I:/ECE551/Project/mtr_drv.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project/mtr_drv.sv|
+R9
+!s107 I:/ECE551/Project_git/ece551-final-project/Project/mtr_drv.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project_git/ece551-final-project/Project/mtr_drv.sv|
 !i113 1
+R6
+vpiezo
+R0
+R10
+!i10b 1
+!s100 I8YjMLU7nB=3cC3UOOP@H1
+Ih<ZFGR;WClhC5c2GRM6nf1
+R2
+!s105 piezo_sv_unit
+S1
+R3
+w1544199948
+8I:/ECE551/Project_git/ece551-final-project/Project/piezo.sv
+FI:/ECE551/Project_git/ece551-final-project/Project/piezo.sv
+L0 1
+R5
+r1
+!s85 0
+31
+Z11 !s108 1544303386.000000
+!s107 I:/ECE551/Project_git/ece551-final-project/Project/piezo.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project_git/ece551-final-project/Project/piezo.sv|
+!i113 1
+R6
+vPWM11
+R0
+R10
+!i10b 1
+!s100 ZMMVMOPKYMIX:=B;64QzZ1
+I]DbWgATcLiRbQjoGaTLSA2
+R2
+!s105 PWM11_sv_unit
+S1
+R3
 R4
+8I:/ECE551/Project_git/ece551-final-project/Project/PWM11.sv
+FI:/ECE551/Project_git/ece551-final-project/Project/PWM11.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R11
+!s107 I:/ECE551/Project_git/ece551-final-project/Project/PWM11.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project_git/ece551-final-project/Project/PWM11.sv|
+!i113 1
+R6
+n@p@w@m11
 vrst_synch
 R0
-Z7 !s110 1544148619
+!s110 1544303387
 !i10b 1
 !s100 kDG<5<7GekHMn5B?BdQNQ3
-IIM<l4hgUB3f6iQ_l>O0mo1
-R1
+I_M`oldPoh:NW9hS8424;S1
+R2
 !s105 rst_synch_sv_unit
 S1
-R2
-w1539008575
-8I:/ECE551/Project/rst_synch.sv
-FI:/ECE551/Project/rst_synch.sv
-L0 1
 R3
-r1
-!s85 0
-31
-Z8 !s108 1544148619.000000
-!s107 I:/ECE551/Project/rst_synch.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project/rst_synch.sv|
-!i113 1
 R4
-vSegway
-!s110 1544153375
-!i10b 1
-!s100 7P97HS?NMcm2]X8<[k;`11
-IH4GA2RGS?@NZDQS=eo6Bn2
-R1
-R2
-w1544153172
-8I:/ECE551/Project/Segway.v
-FI:/ECE551/Project/Segway.v
+8I:/ECE551/Project_git/ece551-final-project/Project/rst_synch.sv
+FI:/ECE551/Project_git/ece551-final-project/Project/rst_synch.sv
 L0 1
-R3
+R5
 r1
 !s85 0
 31
-!s108 1544153375.000000
-!s107 I:/ECE551/Project/Segway.v|
-!s90 -reportprogress|300|-work|work|-stats=none|I:/ECE551/Project/Segway.v|
+!s108 1544303387.000000
+!s107 I:/ECE551/Project_git/ece551-final-project/Project/rst_synch.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project_git/ece551-final-project/Project/rst_synch.sv|
+!i113 1
+R6
+vSegway
+!s110 1544305015
+!i10b 1
+!s100 5?GG[hd1f>iW34b0^GCM71
+I2b=n7^faT@5CFEPeEI38[0
+R2
+R3
+w1544305005
+8I:/ECE551/Project_git/ece551-final-project/Project/Segway.v
+FI:/ECE551/Project_git/ece551-final-project/Project/Segway.v
+L0 1
+R5
+r1
+!s85 0
+31
+!s108 1544305014.000000
+!s107 I:/ECE551/Project_git/ece551-final-project/Project/Segway.v|
+!s90 -reportprogress|300|-work|work|-stats=none|I:/ECE551/Project_git/ece551-final-project/Project/Segway.v|
 !i113 1
 o-work work -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 n@segway
 vSPI_mstr16
 R0
-Z9 !s110 1544148618
+!s110 1544303388
 !i10b 1
 !s100 d`Cj>m56Qc^:459:JGG`Y1
-Iz=WOFHSJ9OmOIV3oGNA<C2
-R1
+ImbGhL=88GX]JP0iUDKiZG2
+R2
 !s105 SPI_mstr16_sv_unit
 S1
-R2
-w1541783749
-8I:/ECE551/Project/SPI_mstr16.sv
-FI:/ECE551/Project/SPI_mstr16.sv
-L0 1
 R3
+R4
+8I:/ECE551/Project_git/ece551-final-project/Project/SPI_mstr16.sv
+FI:/ECE551/Project_git/ece551-final-project/Project/SPI_mstr16.sv
+L0 1
+R5
 r1
 !s85 0
 31
-!s108 1544148617.000000
-!s107 I:/ECE551/Project/SPI_mstr16.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project/SPI_mstr16.sv|
+!s108 1544303388.000000
+!s107 I:/ECE551/Project_git/ece551-final-project/Project/SPI_mstr16.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project_git/ece551-final-project/Project/SPI_mstr16.sv|
 !i113 1
-R4
+R6
 n@s@p@i_mstr16
 vsteer_en
 R0
-R7
+!s110 1544303585
 !i10b 1
-!s100 YJSkR^@n3m64mzoHhTd8>2
-IXW8iChTOhmWP1XK5_R>SN2
-R1
+!s100 =47aINa28TfT4[;aedMg43
+I<DCETA@;WmRQHJnN1OdSN1
+R2
 !s105 steer_en_sv_unit
 S1
-R2
-w1544148557
-8I:/ECE551/Project/steer_en.sv
-FI:/ECE551/Project/steer_en.sv
-L0 1
 R3
+w1544303445
+8I:/ECE551/Project_git/ece551-final-project/Project/steer_en.sv
+FI:/ECE551/Project_git/ece551-final-project/Project/steer_en.sv
+L0 1
+R5
 r1
 !s85 0
 31
-R8
-!s107 I:/ECE551/Project/steer_en.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project/steer_en.sv|
+!s108 1544303585.000000
+!s107 I:/ECE551/Project_git/ece551-final-project/Project/steer_en.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project_git/ece551-final-project/Project/steer_en.sv|
 !i113 1
-R4
+R6
 vsteer_en_SM
 R0
 !s110 1544148613
 !i10b 1
 !s100 1W@F324oBR1jhdVGWKl4N2
 I?O:AfXPomjz1W5T0GaAZH0
-R1
+R2
 !s105 steer_en_SM_sv_unit
 S1
-R2
+R7
 w1543854780
 8I:/ECE551/Project/steer_en_SM.sv
 FI:/ECE551/Project/steer_en_SM.sv
 L0 1
-R3
+R5
 r1
 !s85 0
 31
@@ -238,29 +355,29 @@ r1
 !s107 I:/ECE551/Project/steer_en_SM.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project/steer_en_SM.sv|
 !i113 1
-R4
+R6
 nsteer_en_@s@m
 vUART_rcv
 R0
-R9
+!s110 1544303382
 !i10b 1
-!s100 W<MdMY27b1e6hcMDElUE11
-I=iPfQ_ioSkEb>RmRG?4h92
-R1
+!s100 ef8C@z5ghUzITC;1LR7>52
+IX9O:JHGTB]G;kVgo@ZJd82
+R2
 !s105 UART_rcv_sv_unit
 S1
-R2
-w1539957226
-8I:/ECE551/Project/UART_rcv.sv
-FI:/ECE551/Project/UART_rcv.sv
-L0 1
 R3
+R4
+8I:/ECE551/Project_git/ece551-final-project/Project/UART_rcv.sv
+FI:/ECE551/Project_git/ece551-final-project/Project/UART_rcv.sv
+L0 1
+R5
 r1
 !s85 0
 31
-!s108 1544148618.000000
-!s107 I:/ECE551/Project/UART_rcv.sv|
-!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project/UART_rcv.sv|
+!s108 1544303381.000000
+!s107 I:/ECE551/Project_git/ece551-final-project/Project/UART_rcv.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|I:/ECE551/Project_git/ece551-final-project/Project/UART_rcv.sv|
 !i113 1
-R4
+R6
 n@u@a@r@t_rcv

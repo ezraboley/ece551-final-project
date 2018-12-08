@@ -40,8 +40,6 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
   wire [10:0] rght_spd;			// speed of right motor send into motor driver
   wire lft_rev;				// tells motor driver which direction to drive left motor
   wire rght_rev;			// tells motor driver which direction to drive right motor
-  wire [10:0] lft_spd;			// speed of the left motor
-  wire [10:0] rght_spd;			// speed of the right motor
   wire en_steer;			// signal for normal operation when moving
   wire ovr_spd;				// signals that segway is moving too fast
   wire batt_low;			// signals that battery is running low
@@ -71,7 +69,6 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
   
   // assign statements for piezo inputs
 
-  assign ovr_spd = ;
   assign batt_low = batt < 12'h800 ? 1 : 0;
 
   ///////////////////////////
@@ -106,7 +103,7 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
   balance_cntrl iBCNTRL(.clk(clk), .rst_n(rst_n), .vld(vld), .ptch(ptch), 
     .ld_cell_diff(ld_cell_diff), .lft_spd(lft_spd), .lft_rev(lft_rev), 
     .rght_spd(rght_spd), .rght_rev(rght_rev), .rider_off(rider_off), 
-    .en_steer(en_steer));
+    .en_steer(en_steer), .too_fast(ovr_spd));
 
   //////////////////////////////////
   // Instantiate steering enable //
