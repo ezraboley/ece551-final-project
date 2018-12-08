@@ -1,4 +1,6 @@
 module Segway_tb();
+
+'include "tb_tasks.v"
 			
 //// Interconnects to DUT/support defined as type wire /////
 wire SS_n,SCLK,MOSI,MISO,INT;				// to inertial sensor
@@ -13,7 +15,9 @@ reg [7:0] cmd;					// command host is sending to DUT
 reg send_cmd;					// asserted to initiate sending of command
 reg signed [13:0] rider_lean;	// forward/backward lean (goes to SegwayModel)
 // Perhaps more needed?
-
+reg [11:0] ld_cell_lft;		// load on left segway cell
+reg [11:0] ld_cell_rght;	// load on right segway cell 
+reg [11:0] batt_V;		// battery voltage 
 
 /////// declare any internal signals needed at this level //////
 wire cmd_sent;
