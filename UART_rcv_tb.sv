@@ -56,8 +56,7 @@ initial begin
 		$stop();
 	end
 	$display("SUCCESS!");
-	$stop();
-	
+	$quit();	
 end
 
 always #5 clk = ~clk;

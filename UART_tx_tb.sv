@@ -20,7 +20,8 @@ module UART_tx_tb();
 		@(posedge clk) //Make sure trmt value is only high for one clock edge
 		trmt = 0;
 		@(posedge clk);
-		@(posedge done) $stop(); //Stop running testbench once bit has been fully transmitted
+		@(posedge done) $quit(); //Stop running testbench once bit has been fully transmitted
+        $quit();
 	end
 	
 	always #10 clk = ~clk;

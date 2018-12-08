@@ -20,9 +20,8 @@ def get_tests():
 
 def run_test(test_name):
     try:
-        subprocess.check_output("{} {}".format(VSIM_EXE, test_name), shell=True)
+        subprocess.check_output("{} {} -do 'run -all'".format(VSIM_EXE, test_name), shell=True)
         subprocess.check_output("run -all", shell=True)
-
     except subprocess.CalledProcessError as e:
         print(e.output)
 
@@ -54,7 +53,7 @@ def main():
     print("===========BEGINNING TESTS==================")
     for test in tests:
         print("\n\n\nRUNNING {}".format(test))
-        run_test("work." + str(test))
+        run_test("work." + str(test.split('.')[0]))
         print("{} COMPLETED".format(test))
         
     print("===========TEST SUITE COMPLETED=============")
