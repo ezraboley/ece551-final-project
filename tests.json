@@ -1,0 +1,1 @@
+{"tests": ["UART_tx_tb.sv", "UART_rcv_tb.sv"]}
