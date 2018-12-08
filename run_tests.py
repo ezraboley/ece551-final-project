@@ -19,8 +19,12 @@ def get_tests():
 
 
 def run_test(test_name):
-    print(subprocess.check_output("{} {}".format(VSIM_EXE, test_name), shell=True))
-    
+    try:
+        subprocess.check_output("{} {}".format(VSIM_EXE, test_name), shell=True)
+        subprocess.check_output("run -all", shell=True)
+
+    except subprocess.CalledProcessError as e:
+        print(e.output)
 
 def add_test(test_name):
     with open('tests.json', "r") as test_suite:
@@ -40,15 +44,17 @@ def compile_duts():
             files_to_compile.append(dut)
     
     args = " ".join(files_to_compile)
-    print(subprocess.check_output("{} {}".format(VLOG_EXE, args), shell=True))
-
+    try:
+        subprocess.check_output("{} {}".format(VLOG_EXE, args), shell=True)
+    except subprocess.CalledProcessError as e:
+        print(e.output)
 
 def main():
     tests = get_tests()
     print("===========BEGINNING TESTS==================")
     for test in tests:
         print("\n\n\nRUNNING {}".format(test))
-        run_test(test)
+        run_test("work." + str(test))
         print("{} COMPLETED".format(test))
         
     print("===========TEST SUITE COMPLETED=============")
