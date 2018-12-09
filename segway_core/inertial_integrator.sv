@@ -6,8 +6,11 @@ module inertial_integrator(ptch, AZ, ptch_rt, vld, rst_n, clk);
 	localparam PTCH_RT_OFFSET = 16'h03C2;
 	localparam AZ_OFFSET = 16'hFE80;
 
-	reg signed [26:0] ptch_int, ptch_acc_product, fusion_ptch_offset;
-	reg signed [15:0] ptch_acc, ptch_rt_comp, AZ_comp;
+	reg signed [26:0] ptch_int, ptch_acc_product;
+	reg signed [15:0] ptch_acc;
+        wire signed [15:0] ptch_rt_comp, AZ_comp;
+	wire signed [26:0] fusion_ptch_offset;
+        
 
 	always @(posedge clk, negedge rst_n) begin
     		if (!rst_n) ptch_int <= 0;
@@ -15,19 +18,14 @@ module inertial_integrator(ptch, AZ, ptch_rt, vld, rst_n, clk);
         	else ptch_int <= ptch_int;
 	end
 
-	always @(posedge clk, negedge rst_n) begin
-    		if (!rst_n) ptch_rt_comp <= 0;
-    		else if (vld) ptch_rt_comp = ptch_rt - PTCH_RT_OFFSET; //Integrate compensated signal into pitch on every valid pulse
-       		else ptch_rt_comp <= ptch_rt_comp;
-    	end
-
 	always_comb begin
    		ptch_acc_product = AZ_comp * $signed(327);
     		ptch_acc = {{3{ptch_acc_product[25]}}, ptch_acc_product[25:13]}; //Pitch angle from accelerometer
 	end
 
+	assign ptch_rt_comp = ptch_rt - PTCH_RT_OFFSET; //Integrate compensated signal into pitch on every valid pulse
 	assign AZ_comp = AZ - AZ_OFFSET; //Calculate pitch as seen be accelerometer
-	assign fusion_ptch_offset = (ptch_acc > ptch) ? 10'd1024 : -10'd1024; //Compare accelerometer pitch and gyro pitch
+	assign fusion_ptch_offset = (ptch_acc > ptch) ? 27'd1024 : -27'd1024; //Compare accelerometer pitch and gyro pitch
 	assign ptch = ptch_int[26:11];
 
 

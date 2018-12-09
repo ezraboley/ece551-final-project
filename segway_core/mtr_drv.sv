@@ -1,4 +1,4 @@
-module mtr_drv(clk, rst_n, lft_spd, lft_rev, PWM_rev_lft, PWM_frwrd_lft, rght_spd, rght_rev, PWM_rev_rght, PWM_frwrd_rght);
+module mtr_drv(clk, rst_n, lft_spd, lft_rev, PWM_rev_lft, PWM_frwrd_lft, rght_spd, rgt_rev, PWM_rev_rght, PWM_frwrd_rght);
 
 input clk, rst_n, lft_rev, rght_rev;
 input [10:0] lft_spd, rght_spd;
