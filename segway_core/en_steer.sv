@@ -1,4 +1,4 @@
-module en_steer(clk, rst_n, lft_ld, rght_ld, en_steer, rider_off);
+module en_steer(clk, rst_n, lft_ld, rght_ld, en_steer, rider_off, ld_cell_diff);
   input clk;				// 50MHz clock
   input rst_n;				// Active low asynch reset
   wire sum_gt_min;			// asserted when left and right load cells together exceed min rider weight
@@ -21,7 +21,7 @@ module en_steer(clk, rst_n, lft_ld, rght_ld, en_steer, rider_off);
   input [11:0] lft_ld; // load form left cell
   input [11:0] rght_ld; // load from right cell
   
-  wire [11:0] diff;		// difference of left and right loads
+  output [11:0] ld_cell_diff;	// difference of left and right loads
   wire diff_gt_1_4;		// asserted if load cell difference exceeds 1/4 sum (rider not situated)
   wire diff_gt_15_16;		// asserted if load cell difference is great (rider stepping off)
   output logic en_steer;	// enables steering (goes to balance_cntrl)
@@ -34,9 +34,9 @@ module en_steer(clk, rst_n, lft_ld, rght_ld, en_steer, rider_off);
   reg[25:0] tmr;
 
   //assign statements
-  assign diff = lft_ld - rght_ld;
-  assign diff_gt_1_4 = diff[11] ? ((~diff + 1) > (lft_ld + rght_ld)/4 ? 1 : 0) : diff > (lft_ld + rght_ld)/4 ? 1 : 0;
-  assign diff_gt_15_16 = diff[11] ? ((~diff + 1) > (lft_ld + rght_ld)*15/16 ? 1 : 0) : diff > (lft_ld + rght_ld)*15/16 ? 1 : 0;
+  assign ld_cell_diff = lft_ld - rght_ld;
+  assign diff_gt_1_4 = ld_cell_diff[11] ? ((~ld_cell_diff + 1) > (lft_ld + rght_ld)/4 ? 1 : 0) : ld_cell_diff > (lft_ld + rght_ld)/4 ? 1 : 0;
+  assign diff_gt_15_16 = ld_cell_diff[11] ? ((~ld_cell_diff + 1) > (lft_ld + rght_ld)*15/16 ? 1 : 0) : ld_cell_diff > (lft_ld + rght_ld)*15/16 ? 1 : 0;
   assign sum_gt_min = (lft_ld + rght_ld) > MIN_RIDER_WEIGHT ? 1 : 0;
   assign tmr_full = fast_sim ? &tmr[14:0] : &tmr[25:0]; 
 
