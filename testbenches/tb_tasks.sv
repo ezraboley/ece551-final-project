@@ -1,12 +1,12 @@
-task rstDUT_n;
+/*task rstDUT_n;
     rst_n = 0;
     @(posedge clk);
     @(negedge clk);
     rst_n = 1;
     @(posedge clk);
-endtask
+endtask*/
 
-task RST_DUT__n;
+task RST_DUT_n;
     RST_n = 0;
     @(posedge clk);
     @(negedge clk);
@@ -29,7 +29,7 @@ task sign_extend;
         out_sig = {(OUT_SIZE - IN_SIZE){in_sig[IN_SIZE - 1]}, in_sig};
     end
 endtask
-*/
+
 task init_digital_core;
     
         clk = 0;
@@ -40,7 +40,7 @@ task init_digital_core;
         rght_ld = 12'h00;
         batt = 12'h000;
    
-endtask
+endtask 
 
 task inputSPI_cmd(command);
 	input[15:0] command;
@@ -52,7 +52,7 @@ task inputSPI_cmd(command);
 	@(posedge clk);
 	while(!done) @(posedge clk);
 endtask
-/*
+
 task inputUART(in);
 	input[7:0] in;
 	tx_data = in;
@@ -71,12 +71,12 @@ task init_Segway;
 	rider_lean = 0;
 	ld_cell_lft = 0;
 	ld_cell_rght = 0;
-	batt_v = 0;
+	batt_V = 0;
 endtask
 
 task send_s;
 	@(posedge clk);
-	tx_data = 8'h73;
+	cmd = 8'h73;
 	@(posedge clk);
 	send_cmd = 1;
 	@(posedge clk);
@@ -87,12 +87,17 @@ endtask
 
 task send_g;
 	@(posedge clk);
-	tx_data = 8'h67;
+	cmd = 8'h67;
 	@(posedge clk);
 	send_cmd = 1;
 	@(posedge clk);
 	send_cmd = 0;
 	@(posedge clk);
 	@(posedge cmd_sent);
+endtask
+
+task clock;
+	@(posedge clk);
+	@(negedge clk);
 endtask
 	

@@ -17,11 +17,14 @@ reg [11:0] ld_cell_lft;		// load on left segway cell
 reg [11:0] ld_cell_rght;	// load on right segway cell 
 reg [11:0] batt_V;		// battery voltage 
 
+
 /////// declare any internal signals needed at this level //////
 wire cmd_sent;
 // Perhaps more needed?
-
-
+//counter for rider_lean
+reg [12:0] lean_counter;
+reg zero;
+reg [12:0] i;
 ////////////////////////////////////////////////////////////////
 // Instantiate Physical Model of Segway with Inertial sensor //
 //////////////////////////////////////////////////////////////	
@@ -53,30 +56,110 @@ Segway iDUT(.clk(clk),.RST_n(RST_n),.LED(),.INERT_SS_n(SS_n),.INERT_MOSI(MOSI),
 //// You need something to send the 'g' for go ////////////////
 UART_tx iTX(.clk(clk),.rst_n(RST_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx_done(cmd_sent));
 
+always_ff@(posedge clk, negedge RST_n)begin
+	if(~RST_n) lean_counter <= 0;
+	else if(zero) lean_counter <= 0;
+	else lean_counter <= lean_counter + 1;
+	
+end
+
 
 initial begin
-  Initialize;		// perhaps you make a task that initializes everything?  
-     	init_Segway;
+	//Initialize: perhaps you make a task that initializes everything?  
+    	init_Segway;
   	RST_DUT_n;
  
-  repeat(50000) @(posedge clk);
- 
+//test 1: !'go' && rider_on -- not do anything
+	repeat(5)clock;
+	ld_cell_lft = 12'h150;
+	ld_cell_rght = 12'h156;
+	
+	repeat(15)clock;
+
+//test 2: send 'go' to power up the segway -- pwr_up?
+//		  rider hop-up -- load on 
+//		ld_cell_lft + ld_cell_rght > 12'h200
+
+	clock;
+	send_g;
+	clock;
+	ld_cell_lft = 12'h150;
+	ld_cell_rght = 12'h156;
+	repeat(5)clock;
+	
+
+//test 3: maintain balance: ld_cell_lft = ld_cell_rght, rider_lean = 0;
+	ld_cell_lft = 12'h150;
+	ld_cell_rght = 12'h156;
+	for(i = 0; i < 5000; i= i + 1 )begin
+	clock;
+	rider_lean = lean_counter;
+	end
+	repeat(5)clock;
+	zero = 1;
+	repeat(3)clock;
+	zero = 0 ;
+	for(i = 0; i < 5000; i= i + 1 )begin
+	clock;
+	rider_lean = ~lean_counter + 1;
+	end
+	
+//test 4: go left : ld_cell_lft = 12'h200,  ld_cell_rght = 12'h140
+	ld_cell_lft = 12'h200;
+	ld_cell_rght = 12'h140;
+	rider_lean = 16'h0500;
+	repeat(5)clock;
+	rider_lean = 16'hF501;
+	repeat(5)clock;
+
+//test 5; go right : ld_cell_lft = 12'150, ld_cell_rght = 12'h202
+// 
+	ld_cell_lft = 12'h140;
+	ld_cell_rght = 12'h200;
+	rider_lean = 16'h0500;
+	repeat(5)clock;
+	rider_lean = 16'hF501;
+	repeat(5)clock;
+	
+//teet 10: still on, no signal sent; one foot off -- disable en_steer, waiting-- rider_off =1;
+	ld_cell_lft = 12'h140;
+	ld_cell_rght = 12'h0;
+	repeat(15)clock;
+	ld_cell_lft = 12'h140;
+	ld_cell_rght = 12'h145;	
+	repeat(5)clock;
+	
+	
+//test 8: send 's', check still go
+	send_s;
+	repeat(5)clock;
+
+//test 9: step off, check segway stopped 
+	ld_cell_lft = 12'h0;
+	ld_cell_rght = 12'h0;
+	repeat(5)clock;
 
 
-  SendCmd(8'h67);	// perhaps you have a task that sends 'g'
+//
+//  repeat(50000) @(posedge clk);
+   
+
+
+/* SendCmd(8'h67);	// perhaps you have a task that sends 'g'
 
     .
 	.	// this is the "guts" of your test
 	.
-	
-  $display("YAHOO! test passed!");
+	*/
+ // $display("YAHOO! test passed!");
   
   $stop();
 end
 
+
 always
   #5 clk = ~clk;
 
-`include "tb_tasks.v"	// perhaps you have a separate included file that has handy tasks.
+`include "tb_tasks.sv"	// perhaps you have a separate included file that has handy tasks.
 
 endmodule	
