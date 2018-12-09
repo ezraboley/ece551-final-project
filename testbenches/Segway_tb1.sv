@@ -56,10 +56,63 @@ UART_tx iTX(.clk(clk),.rst_n(RST_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx
 
 initial begin
   Initialize;		// perhaps you make a task that initializes everything?  
-  ////// Start issuing commands to DUT //////
+     	init_Segway;
+  	RST_DUT_n;
  
   repeat(50000) @(posedge clk);
-  
+ 
+
+		clk = 0;
+		rst_n = 0;
+		nxt = 0;
+		@(posedge clk);
+		@(negedge clk);
+		rst_n = 1;
+
+		@(posedge clk);
+		lft_ld = 12'h1A6;
+		rght_ld = 12'h1A0;
+		@(posedge clk);
+
+		fork begin : timeout1
+			repeat(35000) @(posedge clk);
+			$display("Timeout waiting for en_steer signal");
+			$stop();
+		end
+		begin
+			@(posedge en_steer);
+			disable timeout1;
+		end
+		join
+		if(!en_steer) begin
+			$display("Error, en_steer should be asserted here.");
+			$stop();
+		end
+		if(rider_off) begin
+			$display("Error, rider_off should NOT be asserted here.");
+			$stop();
+		end
+		
+		repeat(5)@(posedge clk);
+		rst_n = 0;
+		repeat(5)@(posedge clk);
+		rst_n = 1;
+
+		repeat(5)@(posedge clk);
+		lft_ld = 12'h0A8; 
+		rght_ld = 12'h100;
+		repeat(2)@(posedge clk);
+		
+		if(iDUT.state != iDUT.IDLE) begin
+			$display("Error, sum did not exceed min rider weight");
+			$stop();
+		end
+
+		if(en_steer) begin
+			$display("Error, en_steer should NOT be asserted here.");
+			$stop();
+		end 
+
   SendCmd(8'h67);	// perhaps you have a task that sends 'g'
 
     .
