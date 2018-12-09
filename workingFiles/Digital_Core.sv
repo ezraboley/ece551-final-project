@@ -1,5 +1,5 @@
 module Digital_Core(clk, rst_n, pwr_up, lft_ld, rght_ld, batt, nxt, SS_n, 
-  SCLK, MOSI, MISO, INT, batt_low, ovr_spd, en_steer, rght_rev, rght_spd, lft_rev, lft_spd);
+  SCLK, MOSI, MISO, INT, batt_low, ovr_spd, en_steer, rght_rev, rght_spd, lft_rev, lft_spd, rider_off);
 
 //inputs ans outputs
 input clk, rst_n, pwr_up, MISO, INT;
@@ -7,9 +7,10 @@ input [11:0] lft_ld, rght_ld, batt;
 
 output en_steer, ovr_spd, batt_low, MOSI, lft_rev, rght_rev, SS_n, SCLK, nxt;
 output [10:0] lft_spd, rght_spd;
+output rider_off;
 
 // internal wires
-wire rider_off, vld;
+wire vld;
 wire [15:0] ptch;
 wire [11:0] ld_cell_diff;
 

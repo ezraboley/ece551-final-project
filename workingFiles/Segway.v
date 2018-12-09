@@ -119,7 +119,7 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
     .MOSI(INERT_MOSI), .MISO(INERT_MISO), .INT(INT), .clk(clk), .rst_n(rst_n));*/
 
   
-  Digital_Core iDC(clk, rst_n, pwr_up, lft_ld, rght_ld, batt, nxt, INERT_SS_n, INERT_SCLK, INERT_MOSI, INERT_MISO, INT, batt_low, ovr_spd, en_steer, rght_rev, rght_spd, lft_rev, lft_spd);
+  Digital_Core iDC(clk, rst_n, pwr_up, lft_ld, rght_ld, batt, nxt, INERT_SS_n, INERT_SCLK, INERT_MOSI, INERT_MISO, INT, batt_low, ovr_spd, en_steer, rght_rev, rght_spd, lft_rev, lft_spd, rider_off);
 	
   /////////////////////////////////////
   // Instantiate reset synchronizer //
