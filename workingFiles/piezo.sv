@@ -1,10 +1,10 @@
 module piezo(clk,rst_n,norm_mode,ovr_spd,batt_low,piezo,piezo_n);
 input clk, rst_n, norm_mode, ovr_spd, batt_low;
 output  piezo,piezo_n;
-logic [26:0]counter;
-logic piezo_freq;
-logic time_en;
-logic freq;
+reg [26:0]counter;
+wire piezo_freq;
+wire time_en;
+wire freq;
 
 always_ff@(posedge clk, negedge rst_n)begin
 	if(~rst_n) begin

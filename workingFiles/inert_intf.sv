@@ -3,11 +3,12 @@ module inert_intf(ptch, vld, SCLK, SS_n, MOSI, MISO, INT, clk, rst_n);
 	output reg signed [15:0] ptch;
 	output reg MOSI, SS_n, SCLK, vld;
 
-	reg INT_ff1, INT_ff2, done, wrt, cpl, cph, cazl, cazh;
+	reg INT_ff1, INT_ff2, wrt, cpl, cph, cazl, cazh;
+	wire done;
 	reg [15:0] rd_data, cmd;
 	reg [7:0] AZ_l, AZ_h, ptch_rt_l, ptch_rt_h;
 	reg [15:0] timer;
-	reg signed [15:0] ptch_rt, AZ;
+	wire signed [15:0] ptch_rt, AZ;
 
 	localparam EN_INT    = 16'h0D02;
 	localparam SET_ACCEL = 16'h1053;

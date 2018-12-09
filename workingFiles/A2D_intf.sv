@@ -1,18 +1,16 @@
 module A2D_intf(clk, rst_n, nxt, lft_ld, rght_ld, batt, SS_n, SCLK, MOSI, MISO);
 //inputs
 input clk, rst_n, MISO;
-input reg nxt;
+input nxt;
 // outputs
 output reg [11:0] lft_ld, rght_ld, batt;
 output MOSI, SS_n, SCLK;
 
 //internal wires
-logic done, wrt, rght_en, lft_en, batt_en, counter_in;
+reg wrt, update;
+wire done, rght_en, lft_en, batt_en, counter_in;
 wire [15:0] cmd, rd_data;
 reg counter_out;
-
-//SM output
-logic update;
 
 // instantiate SPI master
 SPI_mstr16 SPI(.clk(clk), .rst_n(rst_n), .wrt(wrt), .done(done), .cmd(cmd), .SS_n(SS_n), .SCLK(SCLK), .MISO(MISO), .MOSI(MOSI), .rd_data(rd_data));

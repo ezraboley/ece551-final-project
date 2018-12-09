@@ -24,13 +24,13 @@ module en_steer(clk, rst_n, lft_ld, rght_ld, en_steer, rider_off, ld_cell_diff);
   output [11:0] ld_cell_diff;	// difference of left and right loads
   wire diff_gt_1_4;		// asserted if load cell difference exceeds 1/4 sum (rider not situated)
   wire diff_gt_15_16;		// asserted if load cell difference is great (rider stepping off)
-  output logic en_steer;	// enables steering (goes to balance_cntrl)
-  output logic rider_off;	// pulses high for one clock on transition back to initial state
+  output reg en_steer;	// enables steering (goes to balance_cntrl)
+  output reg rider_off;	// pulses high for one clock on transition back to initial state
 
   localparam MIN_RIDER_WEIGHT = 12'h200;
   parameter fast_sim = 0;
-  reg clr_tmr, tmr_full;
-
+  reg clr_tmr;
+  wire tmr_full;
   reg[25:0] tmr;
 
   //assign statements

@@ -24,7 +24,7 @@ module ADC128S(clk,rst_n,SS_n,SCLK,MISO,MOSI,ld_cell_lft, ld_cell_rght, batt_V);
   output MISO;			// serial data out to master
   wire [15:0] A2D_data,cmd;
   wire rdy_rise;
-  logic [11:0]value;
+  wire [11:0]value;
   
 	
   typedef enum reg {FIRST,SECOND} state_t;
@@ -41,7 +41,7 @@ module ADC128S(clk,rst_n,SS_n,SCLK,MISO,MOSI,ld_cell_lft, ld_cell_rght, batt_V);
   /////////////////////////////////////////////
   // SM outputs declared as type logic next //
   ///////////////////////////////////////////
-  logic update_ch;
+  reg update_ch;
 
   ////////////////////////////////
   // Instantiate SPI interface //
