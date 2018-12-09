@@ -1,14 +1,15 @@
 module UART_rcv(RX, clk, rst_n, clr_rdy, rx_data, rdy);
-	output reg[7:0] rx_data;
+	output wire[7:0] rx_data;
 	output reg rdy;
 	input RX, clk, rst_n, clr_rdy;
 	typedef enum {IDLE, RECEIVE} state_t;
 	state_t state, nxt_state;
 	localparam BAUD = 12'hA2C;
-	reg[3:0] cnt;
-	reg[8:0] rx_shft_reg;
-	reg[11:0] baud_cnt;
-	reg receive, ff_rx, start, set_rdy, shift, q;
+	reg [3:0] cnt;
+	reg [8:0] rx_shft_reg;
+	reg [11:0] baud_cnt;
+	reg receive, ff_rx, start, set_rdy, q;
+    wire shift;
 
 	assign shift = (baud_cnt == 0); //Data should only be shifted after the baud cycle is over
 	assign rx_data = rx_shft_reg[7:0];

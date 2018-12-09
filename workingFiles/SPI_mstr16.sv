@@ -1,9 +1,10 @@
 module SPI_mstr16(clk, rst_n, wrt,cmd, done, rd_data, SS_n, SCLK, MOSI, MISO);
 input clk, rst_n, MISO, wrt;
-output reg done, MOSI, SS_n;
-output reg [15:0]rd_data;
+output reg done, SS_n;
+output wire [15:0]rd_data;
 input [15:0]cmd;
-output SCLK;
+output wire SCLK;
+output wire MOSI;
 
 
 logic smpl, rst_cnt, shft,MISO_smpl;

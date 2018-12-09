@@ -1,12 +1,16 @@
 module UART_tx(TX, tx_done, clk, rst_n, trmt, tx_data);
-	output reg TX, tx_done;
+	output reg tx_done;
+    output wire TX;
 	input trmt, clk, rst_n;
 	input[7:0] tx_data;
 	reg[9:0] data; //10 bit data value with start/stop bits appended
 	reg[3:0] cnt;
 	reg[11:0] baud_cnt; //Track baud rate
-	reg shift, load, transmit, set_done, clr_done; //Flag values for state machine use
-	localparam BAUD = 12'hA2C; //Given baud value (assigned constant for convenience)
+	reg load, transmit, set_done, clr_done; //Flag values for state machine use
+	
+    wire shift;
+    
+    localparam BAUD = 12'hA2C; //Given baud value (assigned constant for convenience)
 
 	typedef enum {IDLE, TRANSMIT} state_t; 
 	state_t state, next_state;
@@ -68,7 +72,6 @@ module UART_tx(TX, tx_done, clk, rst_n, trmt, tx_data);
 					next_state = state;
 				end
 			default next_state = IDLE;
-				
 		endcase
 	end
 
