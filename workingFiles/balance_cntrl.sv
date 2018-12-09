@@ -18,6 +18,7 @@ module balance_cntrl(clk, rst_n, too_fast, vld, ptch, ld_cell_diff, lft_spd, lft
 	//P term regs
   wire signed[9:0] ptch_err_sat;
   wire signed[14:0] ptch_p_term;
+  reg signed[14:0] ptch_p_ff;
 	//I term regs
   wire signed[17:0] ptch_err_sat_ext, accum, imux1, imux2;
   reg signed [17:0] iflop;
@@ -28,16 +29,19 @@ module balance_cntrl(clk, rst_n, too_fast, vld, ptch, ld_cell_diff, lft_spd, lft
   reg signed[9:0] dflop, prev_ptch_err;
   wire signed[6:0] ptch_d_diff_sat;
   wire signed[12:0] ptch_d_term;
+  reg signed[12:0] ptch_d_ff;
 
 	//Math regs
   wire signed[15:0] pid_cntrl, rght_trq, lft_trq, sum, diff;
   wire signed[15:0] ld_cell_ext, p_ext, i_ext, d_ext;
+  reg signed[15:0] rght_trq_ff, lft_trq_ff;
 
 	//Shaping regs
   wire[14:0] lft_abs, rght_abs, lft_shaped_abs, rght_shaped_abs;
   wire signed[15:0] lft_shaped, rght_shaped, lft_min, rght_min;
   wire unsigned[10:0] lft_spd, rght_spd;
   wire lft_rev, rght_rev, lft_gt, rght_gt;
+  reg signed[15:0] lft_shaped_ff, rght_shaped_ff;
    
   ///////////////////////////////////////////
   // Define needed internal signals below //
@@ -60,6 +64,10 @@ module balance_cntrl(clk, rst_n, too_fast, vld, ptch, ld_cell_diff, lft_spd, lft
   //P term
 	assign ptch_err_sat = ptch[15] ? (&ptch[14:9] ? {ptch[15],ptch[8:0]} : 10'h200) : (|ptch[14:9] ? 10'h1FF : ptch[9:0]); //10 bit saturation of ptch
 	assign ptch_p_term = ptch_err_sat * ($signed(P_COEFF));
+	always@(posedge clk, negedge rst_n) begin
+		if(!rst_n) ptch_p_ff <= 0;
+		else ptch_p_ff <= ptch_p_term;
+	end
 
   //I term
 	assign ptch_err_sat_ext = {{8{ptch_err_sat[9]}},ptch_err_sat[9:0]}; //Sign extend saturated ptch value
@@ -80,6 +88,10 @@ module balance_cntrl(clk, rst_n, too_fast, vld, ptch, ld_cell_diff, lft_spd, lft
 	assign ptch_d_diff_sat = ptch_d_diff[9] ? (&ptch_d_diff[8:6] ? {ptch_d_diff[9],ptch_d_diff[5:0]} : 7'h40) : (|ptch_d_diff[8:6] ? 7'h3F : ptch_d_diff[6:0]); // 7 bit saturation of ptch_D_diff
 	assign ptch_d_term = ptch_d_diff_sat * ($signed(D_COEFF));
 	always@(posedge clk, negedge rst_n) begin
+		if(!rst_n) ptch_d_ff <= 0;
+		else ptch_d_ff <= ptch_d_term;
+	end
+	always@(posedge clk, negedge rst_n) begin
 		if(!rst_n) dflop <= 10'h000;
 		else dflop <= dmux1;
 	end
@@ -91,28 +103,44 @@ module balance_cntrl(clk, rst_n, too_fast, vld, ptch, ld_cell_diff, lft_spd, lft
 
   //PID Math
 	assign ld_cell_ext = {{8{ld_cell_diff[11]}},ld_cell_diff[11:3]};
-	assign p_ext = {ptch_p_term[14],ptch_p_term[14:0]};
+	assign p_ext = {ptch_p_ff[14],ptch_p_ff[14:0]};
 	assign i_ext = fast_sim ? iflop[17:2] : {{4{ptch_i_term[11]}},ptch_i_term[11:0]};
-	assign d_ext = {{3{ptch_d_term[12]}},ptch_d_term[12:0]};
+	assign d_ext = {{3{ptch_d_ff[12]}},ptch_d_ff[12:0]};
 	assign pid_cntrl = p_ext + i_ext + d_ext; //Sum of all PID terms (sign extended)
 	assign diff = pid_cntrl - ld_cell_ext;
 	assign sum = pid_cntrl + ld_cell_ext;
 	assign rght_trq = en_steer ? sum : pid_cntrl;
+	always@(posedge clk, negedge rst_n) begin
+		if(!rst_n) rght_trq_ff <= 0;
+		else rght_trq_ff <= rght_trq;
+	end
 	assign lft_trq = en_steer ? diff : pid_cntrl;
+	always@(posedge clk, negedge rst_n) begin
+		if(!rst_n) lft_trq_ff <= 0;
+		else lft_trq_ff <= lft_trq;
+	end
 
   //Shaping torque
-	assign lft_abs = lft_trq[15] ? (~lft_trq[14:0] + 1) : lft_trq[14:0]; //Absolute value of lft_trq
-	assign rght_abs = rght_trq[15] ? (~rght_trq[14:0] + 1) : rght_trq[14:0]; //Absolute value of rght_trq
+	assign lft_abs = lft_trq_ff[15] ? (~lft_trq_ff[14:0] + 1) : lft_trq_ff[14:0]; //Absolute value of lft_trq
+	assign rght_abs = rght_trq_ff[15] ? (~rght_trq_ff[14:0] + 1) : rght_trq_ff[14:0]; //Absolute value of rght_trq
 	assign lft_gt = lft_abs >= LOW_TORQUE_BAND; //Magnitude compare
 	assign rght_gt = rght_abs >= LOW_TORQUE_BAND; //Magnitude compare
-	assign lft_min = lft_trq[15] ? (~MIN_DUTY + 1) : MIN_DUTY; //Based on sign of lft_trq, change sign of MIN_duty to follow addition/subtraction
-	assign rght_min = rght_trq[15] ? (~MIN_DUTY + 1) : MIN_DUTY; //Based on sign of rght_trq, change sign of MIN_duty to follow addition/subtraction
-	assign lft_shaped = lft_gt ? (lft_trq + lft_min) : (lft_trq * ($signed(GAIN_MULTIPLIER)));
-	assign rght_shaped = rght_gt ? (rght_trq + rght_min) : (rght_trq * ($signed(GAIN_MULTIPLIER)));
-	assign lft_rev = lft_shaped[15];
-	assign rght_rev = rght_shaped[15];
-	assign lft_shaped_abs = lft_rev ? (~lft_shaped[14:0] + 1) : lft_shaped[14:0]; //Absolute value of lft_shaped
-	assign rght_shaped_abs = rght_rev ? (~rght_shaped[14:0] + 1) : rght_shaped[14:0]; //Absolute value of rght_shaped
+	assign lft_min = lft_trq_ff[15] ? (~MIN_DUTY + 1) : MIN_DUTY; //Based on sign of lft_trq, change sign of MIN_duty to follow addition/subtraction
+	assign rght_min = rght_trq_ff[15] ? (~MIN_DUTY + 1) : MIN_DUTY; //Based on sign of rght_trq, change sign of MIN_duty to follow addition/subtraction
+	assign lft_shaped = lft_gt ? (lft_trq_ff + lft_min) : (lft_trq_ff * ($signed(GAIN_MULTIPLIER)));
+	always@(posedge clk, negedge rst_n) begin
+		if(!rst_n) lft_shaped_ff <= 0;
+		else lft_shaped_ff <= lft_shaped;
+	end
+	assign rght_shaped = rght_gt ? (rght_trq_ff + rght_min) : (rght_trq_ff * ($signed(GAIN_MULTIPLIER)));
+	always@(posedge clk, negedge rst_n) begin
+		if(!rst_n) rght_shaped_ff <= 0;
+		else rght_shaped_ff <= rght_shaped;
+	end
+	assign lft_rev = lft_shaped_ff[15];
+	assign rght_rev = rght_shaped_ff[15];
+	assign lft_shaped_abs = lft_rev ? (~lft_shaped_ff[14:0] + 1) : lft_shaped_ff[14:0]; //Absolute value of lft_shaped
+	assign rght_shaped_abs = rght_rev ? (~rght_shaped_ff[14:0] + 1) : rght_shaped_ff[14:0]; //Absolute value of rght_shaped
 	assign lft_spd = pwr_up ? (|lft_shaped_abs[14:11] ? 11'h7FF : lft_shaped_abs[10:0]) : 0; //11 bit unsigned saturation of absolute value of lft_shaped
 	assign rght_spd = pwr_up ? (|rght_shaped_abs[14:11] ? 11'h7FF : rght_shaped_abs[10:0]) : 0; //11 bit unsigned saturation of absolute value of rght_shaped
 	
