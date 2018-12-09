@@ -35,3 +35,7 @@ task inputSPI_cmd(command);
 	@(posedge clk);
 	while(!done) @(posedge clk);
 endtask
+
+task inputUART(in);
+	input[7:0] in;
+
