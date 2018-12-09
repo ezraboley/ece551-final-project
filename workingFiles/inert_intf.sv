@@ -24,7 +24,7 @@ module inert_intf(ptch, vld, SCLK, SS_n, MOSI, MISO, INT, clk, rst_n);
 
 	inertial_integrator inert_int(.clk(clk), .rst_n(rst_n), .vld(vld), .ptch_rt(ptch_rt), .AZ(AZ), .ptch(ptch));
 
-	typedef enum {INIT1, INIT2, INIT3, INIT4, IDLE, WAIT, READ1, READ2, READ3, READ4, DONE} state_t;
+	typedef enum reg [3:0] {INIT1, INIT2, INIT3, INIT4, IDLE, WAIT, READ1, READ2, READ3, READ4, DONE} state_t;
 	state_t state, nxt_state;
 
 	always @(posedge clk, negedge rst_n) begin

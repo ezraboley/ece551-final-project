@@ -10,7 +10,7 @@ output MOSI, SS_n, SCLK;
 reg wrt, update;
 wire done, rght_en, lft_en, batt_en;
 wire [15:0] cmd, rd_data;
-reg counter_out;
+reg [1:0] counter_out;
 
 // instantiate SPI master
 SPI_mstr16 SPI(.clk(clk), .rst_n(rst_n), .wrt(wrt), .done(done), .cmd(cmd), .SS_n(SS_n), .SCLK(SCLK), .MISO(MISO), .MOSI(MOSI), .rd_data(rd_data));
@@ -19,8 +19,17 @@ SPI_mstr16 SPI(.clk(clk), .rst_n(rst_n), .wrt(wrt), .done(done), .cmd(cmd), .SS_
 always_ff@(posedge clk, negedge rst_n)
   if(!rst_n)
     counter_out <= 2'h0;
-  else
-    counter_out <= counter_out + 1;
+  else begin
+    if (update) begin
+        if (counter_out == 2) begin
+            counter_out <= 0;
+        end
+        else begin
+            counter_out <= counter_out + 1;
+        end
+    end
+        else counter_out <= counter_out;
+    end
 
 //enable assigns
 assign lft_en = update ? (counter_out == 2'h0 ? 1'b1 : 1'b0) : 1'b0;

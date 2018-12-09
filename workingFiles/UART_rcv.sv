@@ -2,7 +2,7 @@ module UART_rcv(RX, clk, rst_n, clr_rdy, rx_data, rdy);
 	output wire[7:0] rx_data;
 	output reg rdy;
 	input RX, clk, rst_n, clr_rdy;
-	typedef enum {IDLE, RECEIVE} state_t;
+	typedef enum reg {IDLE, RECEIVE} state_t;
 	state_t state, nxt_state;
 	localparam BAUD = 12'hA2C;
 	reg [3:0] cnt;

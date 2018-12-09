@@ -1,7 +1,5 @@
 module Segway_tb();
 
-`include "tb_tasks.sv"
-			
 //// Interconnects to DUT/support defined as type wire /////
 wire SS_n,SCLK,MOSI,MISO,INT;				// to inertial sensor
 wire A2D_SS_n,A2D_SCLK,A2D_MOSI,A2D_MISO;	// to A2D converter
@@ -35,11 +33,12 @@ SegwayModel iPHYS(.clk(clk),.RST_n(RST_n),.SS_n(SS_n),.SCLK(SCLK),
 /////////////////////////////////////////////////////////
 // Instantiate Model of A2D for load cell and battery //
 ///////////////////////////////////////////////////////
-  What is this?  You need to build some kind of wrapper around ADC128S.sv or perhaps
+/*  What is this?  You need to build some kind of wrapper around ADC128S.sv or perhaps
   around SPI_ADC128S.sv that mimics the behavior of the A2D converter on the DE0 used
   to read ld_cell_lft, ld_cell_rght and battery
-  
-  
+  */
+ADC128S adc(.clk(clk), .rst_n(RST_n), .SS_n(A2D_SS_n), .SCLK(SCLK), .MISO(A2D_MISO), .MOSI(A2D_MOSI), .ld_cell_lft(ld_cell_lft), .ld_cell_rght(ld_cell_rght), .batt_V(batt_V));
+
 ////// Instantiate DUT ////////
 Segway iDUT(.clk(clk),.RST_n(RST_n),.LED(),.INERT_SS_n(SS_n),.INERT_MOSI(MOSI),
             .INERT_SCLK(SCLK),.INERT_MISO(MISO),.A2D_SS_n(A2D_SS_n),

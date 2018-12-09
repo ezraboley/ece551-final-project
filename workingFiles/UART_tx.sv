@@ -12,7 +12,7 @@ module UART_tx(TX, tx_done, clk, rst_n, trmt, tx_data);
     
     localparam BAUD = 12'hA2C; //Given baud value (assigned constant for convenience)
 
-	typedef enum {IDLE, TRANSMIT} state_t; 
+	typedef enum reg {IDLE, TRANSMIT} state_t; 
 	state_t state, next_state;
 
 	assign TX = data[0]; //Always send least significant bit of data

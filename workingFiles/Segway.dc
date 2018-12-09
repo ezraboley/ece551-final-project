@@ -41,7 +41,7 @@ set_max_transition 0.10 [current_design]
 #########################
 # Set clock uncertainty #
 #########################
-set_clock_uncertainty 0.15
+set_clock_uncertainty 0.15 clk
 
 
 ###################################
