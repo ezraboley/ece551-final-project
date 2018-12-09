@@ -74,7 +74,7 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
   ///////////////////////////
   // Instantiate AUTH_blk //
   /////////////////////////  
-  AUTH_blk iAUTH(.clk(clk), .rst_n(rst_n), .RX(RX), .pwr_up(pwr_up));
+  AUTH_blk iAUTH(.clk(clk), .rst_n(rst_n), .RX(RX), .pwr_up(pwr_up), .rider_off(rider_off));
 
   ////////////////////////////////
   // Instantiate A2D interface //
