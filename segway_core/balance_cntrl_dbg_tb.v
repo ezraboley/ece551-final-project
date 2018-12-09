@@ -333,7 +333,7 @@ initial begin
   end  
   
   $display("YAHOO!! all tests passed...run randoms next\n");
-  $stop();
+//  $stop();
 	 
 end
 

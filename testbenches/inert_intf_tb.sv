@@ -31,8 +31,8 @@ initial begin
   //stop sim after 20 vld readings
   @(posedge MODEL.NEMO_setup);
   repeat(500000)@(posedge clk);
-  $stop;
-
+  $display("done!");
+  
 end
 
 //make clock

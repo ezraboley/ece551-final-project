@@ -98,7 +98,7 @@ module en_steer_tb();
 		end
 
 		$display("Tests passed.");	
-		$stop();
+//		$stop();
 	end
 
 	always #5 clk = ~clk;
