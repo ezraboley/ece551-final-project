@@ -16,26 +16,28 @@ module balance_cntrl(clk, rst_n, too_fast, vld, ptch, ld_cell_diff, lft_spd, lft
   // Define needed registers below //
   //////////////////////////////////
 	//P term regs
-  reg signed[9:0] ptch_err_sat;
-  reg signed[14:0] ptch_p_term;
+  wire signed[9:0] ptch_err_sat;
+  wire signed[14:0] ptch_p_term;
 	//I term regs
-  reg signed[17:0] ptch_err_sat_ext, accum, imux1, imux2, iflop;
-  reg signed[11:0] ptch_i_term;
-  reg overflow, valid;
+  wire signed[17:0] ptch_err_sat_ext, accum, imux1, imux2;
+  reg signed [17:0] iflop;
+  wire signed[11:0] ptch_i_term;
+  wire overflow, valid;
 	//D term regs
-  reg signed[9:0] dmux1, dmux2, dflop, prev_ptch_err, ptch_d_diff;
-  reg signed[6:0] ptch_d_diff_sat;
-  reg signed[12:0] ptch_d_term;
+  wire signed[9:0] dmux1, dmux2, ptch_d_diff;
+  reg signed[9:0] dflop, prev_ptch_err;
+  wire signed[6:0] ptch_d_diff_sat;
+  wire signed[12:0] ptch_d_term;
 
 	//Math regs
-  reg signed[15:0] pid_cntrl, rght_trq, lft_trq, sum, diff;
-  reg signed[15:0] ld_cell_ext, p_ext, i_ext, d_ext;
+  wire signed[15:0] pid_cntrl, rght_trq, lft_trq, sum, diff;
+  wire signed[15:0] ld_cell_ext, p_ext, i_ext, d_ext;
 
 	//Shaping regs
-  reg[14:0] lft_abs, rght_abs, lft_shaped_abs, rght_shaped_abs;
-  reg signed[15:0] lft_shaped, rght_shaped, lft_min, rght_min;
-  reg unsigned[10:0] lft_spd, rght_spd;
-  reg lft_rev, rght_rev, lft_gt, rght_gt;
+  wire[14:0] lft_abs, rght_abs, lft_shaped_abs, rght_shaped_abs;
+  wire signed[15:0] lft_shaped, rght_shaped, lft_min, rght_min;
+  wire unsigned[10:0] lft_spd, rght_spd;
+  wire lft_rev, rght_rev, lft_gt, rght_gt;
    
   ///////////////////////////////////////////
   // Define needed internal signals below //

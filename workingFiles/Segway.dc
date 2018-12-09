@@ -55,8 +55,9 @@ report_area
 report_timing -delay max
 report_timing -delay min
 
-ungroup -all
+ungroup -all -flatten
 compile -map_effort medium
+
 check_design
 report_area
 report_area > mtr_drv_area.txt

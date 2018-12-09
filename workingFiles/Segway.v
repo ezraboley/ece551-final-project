@@ -95,7 +95,7 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
   // Instantiate piezo driver //
   ///////////////////////////// 
   piezo iPIZZA(.clk(clk), .rst_n(rst_n), .batt_low(batt_low), .ovr_spd(ovr_spd), 
-    .en_steer(en_steer), .piezo(piezo), .piezo_n(piezo_n));
+    .norm_mode(en_steer), .piezo(piezo), .piezo_n(piezo_n));
 
   //////////////////////////////////
   // Instantiate balance control //
@@ -124,6 +124,6 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
   /////////////////////////////////////
   // Instantiate reset synchronizer //
   ///////////////////////////////////  
-  reset_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
+  rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
   
 endmodule
