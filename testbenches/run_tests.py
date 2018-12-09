@@ -5,7 +5,7 @@ import subprocess
 import argparse
 import os
 
-VLOG_EXE="vlog -work work"
+VLOG_EXE="vlog -work ../work"
 VSIM_EXE="vsim -c"
 
 def get_tests():
@@ -20,8 +20,8 @@ def get_tests():
 
 def run_test(test_name):
     try:
-        subprocess.check_output("{} {}".format(VSIM_EXE, test_name), shell=True)
-        subprocess.check_output("run -all", shell=True)
+        subprocess.check_output("{} {} run -all".format(VSIM_EXE, test_name), shell=True)
+        #subprocess.check_output("run -all", shell=True)
 
     except subprocess.CalledProcessError as e:
         print(e.output)
