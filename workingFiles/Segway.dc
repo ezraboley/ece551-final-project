@@ -60,5 +60,5 @@ compile -map_effort medium
 
 check_design
 report_area
-report_area > mtr_drv_area.txt
-write -format verilog mtr_drv -output mtr_drv.vg
+report_area > segway_area.txt
+write -format verilog Segway -output Segway.vg

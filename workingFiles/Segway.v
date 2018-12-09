@@ -23,7 +23,7 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
   // passed to both balance_cntrl and to steer_en.  Should be set to  //
   // 0 when we map to the DE0-Nano.                                  //
   ////////////////////////////////////////////////////////////////////
-  localparam fast_sim = 0;	// asserted to speed up simulations. 
+  parameter fast_sim = 0;	// asserted to speed up simulations. 
   
   ///////////////////////////////////////////////////////////
   ////// Internal interconnecting sigals defined here //////
@@ -74,7 +74,7 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
   ///////////////////////////
   // Instantiate AUTH_blk //
   /////////////////////////  
-  AUTH_blk iAUTH(.clk(clk), .rst_n(rst_n), .RX(RX), .pwr_up(pwr_up));
+  AUTH_blk iAUTH(.clk(clk), .rst_n(rst_n), .RX(RX), .pwr_up(pwr_up), .rider_off(rider_off));
 
   ////////////////////////////////
   // Instantiate A2D interface //
