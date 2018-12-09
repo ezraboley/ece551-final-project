@@ -3,7 +3,7 @@ module UART_tx(TX, tx_done, clk, rst_n, trmt, tx_data);
     output wire TX;
 	input trmt, clk, rst_n;
 	input[7:0] tx_data;
-	reg[9:0] data; //10 bit data value with start/stop bits appended
+	reg[8:0] data; //10 bit data value with start/stop bits appended
 	reg[3:0] cnt;
 	reg[11:0] baud_cnt; //Track baud rate
 	reg load, transmit, set_done, clr_done; //Flag values for state machine use
@@ -34,10 +34,10 @@ module UART_tx(TX, tx_done, clk, rst_n, trmt, tx_data);
 
 	//Flop that manages data value
 	always@(posedge clk, negedge rst_n) begin
-		if(!rst_n) data <= 10'h3FF;
+		if(!rst_n) data <= 9'h1FF;
 		else begin
-			if(load) data <= {1'b1,tx_data,1'b0}; //Append start and stop values to data
-			else if(shift) data <= {1'b1,data[9:1]}; //Shift data value right when shift value is asserted
+			if(load) data <= {tx_data,1'b0}; //Append start and stop values to data
+			else if(shift) data <= {1'b1,data[8:1]}; //Shift data value right when shift value is asserted
 			else data <= data;
 		end
 	end
@@ -63,7 +63,7 @@ module UART_tx(TX, tx_done, clk, rst_n, trmt, tx_data);
 				end
 				else next_state = state;
 			TRANSMIT : 
-				if(cnt == 10) begin //Count is full after 10 bits have been transmitted (start bit, 8 data bits, stop bit)
+				if(cnt == 9) begin //Count is full after 10 bits have been transmitted (start bit, 8 data bits, stop bit)
 					set_done = 1;
 					next_state = IDLE;
 				end

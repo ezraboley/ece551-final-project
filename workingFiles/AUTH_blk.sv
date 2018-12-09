@@ -1,10 +1,10 @@
-module Auth_blk(RX, pwr_up, clk, rst_n, rider_off);
+module AUTH_blk(RX, pwr_up, clk, rst_n, rider_off);
 output reg pwr_up;
 input rst_n, clk, RX, rider_off;
 
-logic [7:0]rx_data;
-logic rx_rdy;
-logic clr_rx_rdy;
+reg [7:0]rx_data;
+reg rx_rdy;
+reg clr_rx_rdy;
 parameter [7:0]g = 8'h67;
 
 parameter [7:0]s = 8'h73;
