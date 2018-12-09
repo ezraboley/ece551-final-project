@@ -34,10 +34,10 @@ module UART_tx(TX, tx_done, clk, rst_n, trmt, tx_data);
 
 	//Flop that manages data value
 	always@(posedge clk, negedge rst_n) begin
-		if(!rst_n) data <= 0;
+		if(!rst_n) data <= 10'h3FF;
 		else begin
 			if(load) data <= {1'b1,tx_data,1'b0}; //Append start and stop values to data
-			else if(shift) data <= data >> 1; //Shift data value right when shift value is asserted
+			else if(shift) data <= {1'b1,data[9:1]}; //Shift data value right when shift value is asserted
 			else data <= data;
 		end
 	end
