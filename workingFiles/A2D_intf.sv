@@ -44,9 +44,8 @@ end
 always_comb begin
 //default output
 wrt = 0;
-done =0;
 nxt_state = IDLE;
-
+update = 0;
 case(state)
 		//wait for nxt to start on first channel transaction
 	IDLE: if(nxt)begin
@@ -55,7 +54,7 @@ case(state)
 		  end
 		  else nxt_state = IDLE;
 	
-	DONE: //wait for done to notify that we finished receiving first rd_data/result
+	FIRST: //wait for done to notify that we finished receiving first rd_data/result
 		  if(done)	nxt_state = WAIT;
 		  else nxt_state = FIRST;
 		  
@@ -66,7 +65,7 @@ case(state)
 		  end
 		  
 	DONE: if(done)begin
-			update = 0;
+			update = 1;
 			wrt = 0;
 			nxt_state = IDLE;
 		  end
