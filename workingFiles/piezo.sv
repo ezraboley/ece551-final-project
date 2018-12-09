@@ -1,5 +1,5 @@
 module piezo(clk,rst_n,norm_mode,ovr_spd,batt_low,piezo,piezo_n);
-input clk, rst_n, norm_mode ovr_spd, batt_low;
+input clk, rst_n, norm_mode, ovr_spd, batt_low;
 output  piezo,piezo_n;
 logic [26:0]counter;
 logic piezo_freq;
