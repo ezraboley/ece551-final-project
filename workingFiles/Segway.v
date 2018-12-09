@@ -69,7 +69,7 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
   
   // assign statements for piezo inputs
 
-  assign batt_low = batt < 12'h800 ? 1 : 0;
+  //assign batt_low = batt < 12'h800 ? 1 : 0;
 
   ///////////////////////////
   // Instantiate AUTH_blk //
@@ -95,32 +95,35 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
   // Instantiate piezo driver //
   ///////////////////////////// 
   piezo iPIZZA(.clk(clk), .rst_n(rst_n), .batt_low(batt_low), .ovr_spd(ovr_spd), 
-    .en_steer(en_steer), .piezo(piezo), .piezo_n(piezo_n));
+    .norm_mode(en_steer), .piezo(piezo), .piezo_n(piezo_n));
 
   //////////////////////////////////
   // Instantiate balance control //
   ////////////////////////////////
-  balance_cntrl iBCNTRL(.clk(clk), .rst_n(rst_n), .vld(vld), .ptch(ptch), 
+  /*balance_cntrl iBCNTRL(.clk(clk), .rst_n(rst_n), .vld(vld), .ptch(ptch), 
     .ld_cell_diff(ld_cell_diff), .lft_spd(lft_spd), .lft_rev(lft_rev), 
     .rght_spd(rght_spd), .rght_rev(rght_rev), .rider_off(rider_off), 
-    .en_steer(en_steer), .too_fast(ovr_spd));
+    .en_steer(en_steer), .too_fast(ovr_spd));*/
 
   //////////////////////////////////
   // Instantiate steering enable //
   //////////////////////////////// 
-  steer_en iENST(.clk(clk), .rst_n(rst_n), .tmr_full(tmr_full), .lft_ld(lft_ld),
+  /*steer_en iENST(.clk(clk), .rst_n(rst_n), .tmr_full(tmr_full), .lft_ld(lft_ld),
     .rght_ld(rght_ld), .clr_tmr(clr_tmr), .en_steer(en_steer),
-    .rider_off(rider_off));
+    .rider_off(rider_off));*/
 
   /////////////////////////////////////
   // Instantiate inertial interface //
   ///////////////////////////////////
-  inert_intf iInrt(.ptch(ptch), .vld(vld), .SCLK(INERT_SCLK), .SS_n(INERT_SS_n), 
-    .MOSI(INERT_MOSI), .MISO(INERT_MISO), .INT(INT), .clk(clk), .rst_n(rst_n));
+  /*inert_intf iInrt(.ptch(ptch), .vld(vld), .SCLK(INERT_SCLK), .SS_n(INERT_SS_n), 
+    .MOSI(INERT_MOSI), .MISO(INERT_MISO), .INT(INT), .clk(clk), .rst_n(rst_n));*/
 
+  
+  Digital_Core iDC(clk, rst_n, pwr_up, lft_ld, rght_ld, batt, nxt, INERT_SS_n, INERT_SCLK, INERT_MOSI, INERT_MISO, INT, batt_low, ovr_spd, en_steer, rght_rev, rght_spd, lft_rev, lft_spd);
+	
   /////////////////////////////////////
   // Instantiate reset synchronizer //
   ///////////////////////////////////  
-  reset_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
+  rst_synch iRST(.clk(clk),.RST_n(RST_n),.rst_n(rst_n));
   
 endmodule
