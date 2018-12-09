@@ -356,7 +356,7 @@ module SegwayModel(clk,RST_n,SS_n,SCLK,MISO,MOSI,INT,PWM_rev_rght,PWM_frwrd_rght
 	  response = 8'hA5;			// respond with 0xA5
   endfunction
   
-  assign NEMO_setup = ((registers[7'h0d]===8'h02) && (registers[7'h11]===8'h50)) ? 1'b1 : 1'b0;
+  assign NEMO_setup = ((registers[7'h0d]==8'h02) && (registers[7'h11]==8'h50)) ? 1'b1 : 1'b0;
   
 
   
