@@ -6,13 +6,9 @@ task rstDUT_n;
     @(posedge clk);
 endtask
 
-task debug;
-    parameter BUS_SIZE = 1;
-    input string name;
-    input [BUS_SIZE : 0] expected;
-    input [BUS_SIZE : 0] actual;
+function void debug (string name, integer expected, integer actual);
     $display("SIGNAL NAME: %s  |  EXPECTED VALUE: %h  |  ACTUAL VALUE: %h", name, expected, actual);
-endtask
+endfunction
 
 task sign_extend;
     parameter IN_SIZE = 0;
@@ -22,6 +18,18 @@ task sign_extend;
      
     initial begin
         out_sig = {(OUT_SIZE - IN_SIZE){in_sig[IN_SIZE - 1]}, in_sig};
+    end
+endtask
+
+task init_digital_core;
+    begin
+        clk = 0;
+        pwr_up = 0;
+        MISO = 0;
+        INT = 0;
+        lft_ld = 12'h000;
+        rght_ld = 12'h00;
+        batt = 12'h000;
     end
 endtask
 
