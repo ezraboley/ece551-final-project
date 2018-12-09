@@ -32,3 +32,14 @@ task init_digital_core;
         batt = 12'h000;
     end
 endtask
+
+task inputSPI_cmd(command);
+	input[15:0] command;
+	cmd = command;
+	@(posedge clk);
+	wrt = 1;
+	@(posedge clk);
+	wrt = 0;
+	@(posedge clk);
+	while(!done) @(posedge clk);
+endtask
