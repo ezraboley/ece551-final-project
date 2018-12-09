@@ -6,6 +6,14 @@ task rstDUT_n;
     @(posedge clk);
 endtask
 
+task RST_DUT__n;
+    RST_n = 0;
+    @(posedge clk);
+    @(negedge clk);
+    RST_n = 1;
+    @(posedge clk);
+endtask
+
 function void debug (string name, integer expected, integer actual);
     $display("SIGNAL NAME: %s  |  EXPECTED VALUE: %h  |  ACTUAL VALUE: %h", name, expected, actual);
 endfunction
@@ -54,3 +62,8 @@ task inputUART(in);
 	@(posedge clk);
 endtask
 */
+
+task init_Segway;
+	
+
+endtask

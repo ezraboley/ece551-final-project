@@ -8,7 +8,7 @@ output MOSI, SS_n, SCLK;
 
 //internal wires
 reg wrt, update;
-wire done, rght_en, lft_en, batt_en, counter_in;
+wire done, rght_en, lft_en, batt_en;
 wire [15:0] cmd, rd_data;
 reg counter_out;
 
@@ -20,9 +20,7 @@ always_ff@(posedge clk, negedge rst_n)
   if(!rst_n)
     counter_out <= 2'h0;
   else
-    counter_out <= counter_in;
-
-assign counter_in = update ? (counter_out == 2'h2 ? 2'h0 : counter_out + 1'b1) : counter_out;
+    counter_out <= counter_out + 1;
 
 //enable assigns
 assign lft_en = update ? (counter_out == 2'h0 ? 1'b1 : 1'b0) : 1'b0;
