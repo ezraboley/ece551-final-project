@@ -64,6 +64,12 @@ endtask
 */
 
 task init_Segway;
-	
-
+	clk = 0;
+	RST_n = 0;
+	cmd = 0;
+	send_cmd = 0;
+	rider_lean = 0;
+	ld_cell_lft = 0;
+	ld_cell_rght = 0;
+	batt_v = 0;
 endtask
