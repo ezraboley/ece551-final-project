@@ -1,4 +1,4 @@
-module UART_rcv_tb();
+module UART_tb();
 
 reg RX, clk, rst_n, clr_rdy, tx_done, trmt, rdy;
 reg[7:0] rx_data, tx_data;
