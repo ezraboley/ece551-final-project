@@ -46,4 +46,9 @@ endtask
 
 task inputUART(in);
 	input[7:0] in;
-
+	tx_data = in;
+	tmrt = 1;
+	@(posedge clk);
+	tmrt = 0;
+	@(posedge clk);
+endtask

@@ -60,7 +60,7 @@ case(state)
 		  else nxt_state = FIRST;
 		  
 	WAIT: //wait for one clock cycle to sych/hold the result
-		  if(1) begin
+		  begin
 			wrt = 1;
 		  	nxt_state = DONE;
 		  end

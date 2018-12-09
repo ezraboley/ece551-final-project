@@ -83,6 +83,7 @@ module en_steer_tb();
 		@(posedge clk);
 		if(iDUT.state != iDUT.WAIT) begin
 			$display("Error, should transition to WAIT state");
+			$stop();
 		end
 		repeat(5)@(posedge clk);
 		lft_ld = 12'h012; 
