@@ -37,7 +37,7 @@ module en_steer_tb();
 			$display("Error, rider_off should NOT be asserted here.");
 			$stop();
 		end
-
+		repeat(20)@(posedge clk);
 		lft_ld = 12'h201; 
 		rght_ld = 0;
 		repeat(10)@(posedge clk);
@@ -63,7 +63,8 @@ module en_steer_tb();
 			$stop();
 		end
 
-		$display("Tests passed.");	
+		$display("Tests passed.");
+		$stop();	
 	end
 
 	always #5 clk = ~clk;
