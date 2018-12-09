@@ -1,5 +1,4 @@
 task rstDUT_n;
-    inout rst_n;
     rst_n = 0;
     @(posedge clk);
     @(negedge clk);
@@ -24,4 +23,15 @@ task sign_extend;
     initial begin
         out_sig = {(OUT_SIZE - IN_SIZE){in_sig[IN_SIZE - 1]}, in_sig};
     end
+endtask
+
+task inputSPI_cmd(command);
+	input[15:0] command;
+	cmd = command;
+	@(posedge clk);
+	wrt = 1;
+	@(posedge clk);
+	wrt = 0;
+	@(posedge clk);
+	while(!done) @(posedge clk);
 endtask
