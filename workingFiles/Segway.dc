@@ -1,4 +1,4 @@
-read_file -format sverilog {Segway.v mtr_drv.sv A2D_intf.sv balance_cntrl.sv steer_en.sv rst_synch.sv SPI_mstr16.sv inert_intf.sv piezo.sv AUTH_blk.sv PWM11.sv inertial_integrator.sv}
+read_file -format sverilog {Segway.v mtr_drv.sv A2D_intf.sv balance_cntrl.sv en_steer.sv rst_synch.sv SPI_mstr16.sv inert_intf.sv piezo.sv Auth_blk.sv PWM11.sv inertial_integrator.sv UART_rcv.sv UART_tx.sv}
 
 set current_design Segway.v
 
