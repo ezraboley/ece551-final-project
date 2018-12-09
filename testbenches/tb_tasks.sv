@@ -73,3 +73,26 @@ task init_Segway;
 	ld_cell_rght = 0;
 	batt_v = 0;
 endtask
+
+task send_s;
+	@(posedge clk);
+	tx_data = 8'h73;
+	@(posedge clk);
+	send_cmd = 1;
+	@(posedge clk);
+	send_cmd = 0;
+	@(posedge clk);
+	@(posedge cmd_sent);
+endtask
+
+task send_g;
+	@(posedge clk);
+	tx_data = 8'h67;
+	@(posedge clk);
+	send_cmd = 1;
+	@(posedge clk);
+	send_cmd = 0;
+	@(posedge clk);
+	@(posedge cmd_sent);
+endtask
+	
