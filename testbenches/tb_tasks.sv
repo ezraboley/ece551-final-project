@@ -33,7 +33,7 @@ task init_digital_core;
         batt = 12'h000;
    
 endtask
-/*
+
 task inputSPI_cmd(command);
 	input[15:0] command;
 	cmd = command;
@@ -44,7 +44,7 @@ task inputSPI_cmd(command);
 	@(posedge clk);
 	while(!done) @(posedge clk);
 endtask
-
+/*
 task inputUART(in);
 	input[7:0] in;
 	tx_data = in;
