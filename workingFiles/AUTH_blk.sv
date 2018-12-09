@@ -1,4 +1,4 @@
-module AUTH_blk(RX, pwr_up, clk, rst_n, rider_off);
+module Auth_blk(RX, pwr_up, clk, rst_n, rider_off);
 output reg pwr_up;
 input rst_n, clk, RX, rider_off;
 
