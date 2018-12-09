@@ -1,7 +1,7 @@
 module inert_intf_tb();
 //inputs and outputs of blocks
 reg PWM_rev_lft, PWM_frwrd_lft, PWM_rev_rght, PWM_frwrd_rght, clk, rst_n;
-reg signed[13:0] rider_lean;
+reg signed[15:0] rider_lean;
 wire INT, SS_n, SCLK, MOSI, MISO, vld;
 wire [15:0] ptch;
 
@@ -21,7 +21,7 @@ initial begin
   PWM_frwrd_lft = 1'b0;
   PWM_rev_rght = 1'b0;
   PWM_frwrd_rght = 1'b0;
-  rider_lean = 14'h0100;
+  rider_lean = 16'h0100;
   clk = 0;
   rst_n = 0;
   //test rst_n
