@@ -97,7 +97,8 @@ task send_g;
 endtask
 
 task clock;
-	@(posedge clk);
+	input integer num;
+	repeat(num)@(posedge clk);
 	@(negedge clk);
 endtask
 	

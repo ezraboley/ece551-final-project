@@ -11,7 +11,7 @@ wire piezo,piezo_n;
 reg clk, RST_n;
 reg [7:0] cmd;					// command host is sending to DUT
 reg send_cmd;					// asserted to initiate sending of command
-reg signed [13:0] rider_lean;	// forward/backward lean (goes to SegwayModel)
+reg signed [15:0] rider_lean;	// forward/backward lean (goes to SegwayModel)
 // Perhaps more needed?
 reg [11:0] ld_cell_lft;		// load on left segway cell
 reg [11:0] ld_cell_rght;	// load on right segway cell 
@@ -70,25 +70,29 @@ initial begin
   	RST_DUT_n;
  
 //test 1: !'go' && rider_on -- not do anything
-	repeat(5)clock;
+	clock(5);
 	ld_cell_lft = 12'h150;
 	ld_cell_rght = 12'h156;
 	
-	repeat(15)clock;
+	clock(15);
 
 //test 2: send 'go' to power up the segway -- pwr_up?
 //		  rider hop-up -- load on 
 //		ld_cell_lft + ld_cell_rght > 12'h200
 
-	clock;
+	clock(1);
 	send_g;
-	clock;
+	repeat(20)@(posedge iDUT.iDC.iINERT.wrt);
+	clock(1);
 	ld_cell_lft = 12'h150;
 	ld_cell_rght = 12'h156;
-	repeat(5)clock;
+	rider_lean = 16'h1fff;
+	clock(5000000);
+	rider_lean = 16'h0000;
+	clock(5000000);
 	
 
-//test 3: maintain balance: ld_cell_lft = ld_cell_rght, rider_lean = 0;
+/*//test 3: maintain balance: ld_cell_lft = ld_cell_rght, rider_lean = 0;
 	ld_cell_lft = 12'h150;
 	ld_cell_rght = 12'h156;
 	for(i = 0; i < 5000; i= i + 1 )begin
@@ -151,7 +155,7 @@ initial begin
 	.	// this is the "guts" of your test
 	.
 	*/
- // $display("YAHOO! test passed!");
+ // $display("YAHOO! test passed!");*/
   
   $stop();
 end
