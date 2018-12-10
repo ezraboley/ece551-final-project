@@ -50,8 +50,6 @@ set_fix_hold clk
 ####################################################
 set compile_seqmap_enable_output_inversion true
 
-
-
 ###################################
 # Now actually synthesize for 1st time #
 ########################################
