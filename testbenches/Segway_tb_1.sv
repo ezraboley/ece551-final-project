@@ -64,8 +64,8 @@ initial begin
  
 //test 1: !'go' && rider_on -- not do anything
 	clock(5);
-	ld_cell_lft = 12'h150;
-	ld_cell_rght = 12'h156;
+	ld_cell_lft = 12'h156;
+	ld_cell_rght = 12'h150;
 	
 	clock(15);
 
@@ -78,8 +78,6 @@ initial begin
 	repeat(20)@(posedge iDUT.iDC.iINERT.wrt);
 	clock(1);
 
-	ld_cell_lft = 12'h150;
-	ld_cell_rght = 12'h156;
 	rider_lean = 16'h1fff;
 	clock(1000000);
 	rider_lean = 16'h0000;
@@ -87,8 +85,6 @@ initial begin
 	
 
 //test 3: maintain balance: ld_cell_lft = ld_cell_rght, rider_lean = 0;
-	ld_cell_lft = 12'h150;
-	ld_cell_rght = 12'h156;
 	for(i = 0; i < 500; i = i + 1)begin
 		clock(100);
 		rider_lean = rider_lean + 100;
@@ -107,37 +103,39 @@ initial begin
 //test 4: go left : ld_cell_lft = 12'h200,  ld_cell_rght = 12'h140
 	ld_cell_lft = 12'h200;
 	ld_cell_rght = 12'h140;
+	clock(35000);
 	rider_lean = 16'h1500;
-	clock(15000);
+	clock(1500);
 	rider_lean = 16'hF501;
 	clock(15000);
 
-/*/test 5; go right : ld_cell_lft = 12'150, ld_cell_rght = 12'h202
+//test 5; go right : ld_cell_lft = 12'150, ld_cell_rght = 12'h202
 // 
 	ld_cell_lft = 12'h140;
 	ld_cell_rght = 12'h200;
-	rider_lean = 16'h0500;
-	repeat(5)clock;
+	clock(35000);
+	rider_lean = 16'h1500;
+	clock(1500);
 	rider_lean = 16'hF501;
-	repeat(5)clock;
+	clock(15000);
 	
-//teet 10: still on, no signal sent; one foot off -- disable en_steer, waiting-- rider_off =1;
+//test 10: still on, no signal sent; one foot off -- disable en_steer, waiting-- rider_off =1;
 	ld_cell_lft = 12'h140;
 	ld_cell_rght = 12'h0;
-	repeat(15)clock;
+	clock(3500);
 	ld_cell_lft = 12'h140;
 	ld_cell_rght = 12'h145;	
-	repeat(5)clock;
+	clock(3500);
 	
 	
 //test 8: send 's', check still go
 	send_s;
-	repeat(5)clock;
+	clock(500);
 
 //test 9: step off, check segway stopped 
 	ld_cell_lft = 12'h0;
 	ld_cell_rght = 12'h0;
-	repeat(5)clock;
+	clock(500);
 
 
 //
@@ -158,7 +156,7 @@ end
 
 
 always
-  #5 clk = ~clk;
+  #10 clk = ~clk;
 
 `include "tb_tasks.sv"	// perhaps you have a separate included file that has handy tasks.
 

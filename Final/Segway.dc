@@ -1,0 +1,73 @@
+read_file -format sverilog {Segway.v Digital_Core.sv mtr_drv.sv A2D_intf.sv balance_cntrl.sv en_steer.sv rst_synch.sv SPI_mstr16.sv inert_intf.sv piezo.sv AUTH_blk.sv PWM11.sv inertial_integrator.sv UART_rcv.sv UART_tx.sv}
+
+set current_design Segway.v
+
+####################################
+# Define clock and set don't touch #
+####################################
+
+create_clock -name "clk" -period 2.5 -waveform { 0 1.25 } { clk }
+set_dont_touch_network [find port clk]
+
+# setup pointer that contains all inputs except clock #
+set prim_inputs [remove_from_collection [all_inputs] [find port clk]]
+
+#########################################
+# Set input delay & drive on all inputs #
+#########################################
+set_input_delay -clock clk 0.25 [copy_collection $prim_inputs]
+set_driving_cell -lib_cell ND2D2BWP -library \ tcbn40lpbwptc [copy_collection $prim_inputs]
+
+# Set high strength for reset #
+# set_drive 0.1 rst_n #
+
+#########################################
+# Set output delay & load on all outputs #
+##########################################
+set_output_delay -clock clk 0.5 [all_outputs]
+set_load 0.1 [all_outputs]
+
+#############################################################
+# Wire load model allows it to estimate internal parasitics #
+#############################################################
+
+set_wire_load_model -name TSMC32K_Lowk_Conservative -library tcbn40lpbwptc
+
+##################################
+# Max transition time is important for Hot-E reasons #
+#################################
+set_max_transition 0.10 [current_design]
+
+#########################
+# Set clock uncertainty #
+#########################
+set_clock_uncertainty 0.15 clk
+set_fix_hold clk
+
+
+####################################################
+# set sequential mapping t enable output inversion #
+####################################################
+set compile_seqmap_enable_output_inversion true
+
+###################################
+# Now actually synthesize for 1st time #
+########################################
+compile -map_effort low
+
+check_design
+
+report_area
+report_timing -delay max
+report_timing -delay min
+
+ungroup -all -flatten
+compile -map_effort medium
+
+check_design
+report_area
+report_area > segway_area.txt
+report_timing -delay max
+report_timing -delay min
+
+write -format verilog Segway -output Segway.vg

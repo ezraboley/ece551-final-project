@@ -32,11 +32,13 @@ module en_steer(clk, rst_n, lft_ld, rght_ld, en_steer, rider_off, ld_cell_diff);
   reg clr_tmr;
   wire tmr_full;
   reg[25:0] tmr;
+  reg[11:0] diff_abs;
 
   //assign statements
   assign ld_cell_diff = lft_ld - rght_ld;
-  assign diff_gt_1_4 = ld_cell_diff[11] ? ((~ld_cell_diff + 1) > (lft_ld + rght_ld)/4 ? 1 : 0) : ld_cell_diff > (lft_ld + rght_ld)/4 ? 1 : 0;
-  assign diff_gt_15_16 = ld_cell_diff[11] ? ((~ld_cell_diff + 1) > (lft_ld + rght_ld)*15/16 ? 1 : 0) : ld_cell_diff > (lft_ld + rght_ld)*15/16 ? 1 : 0;
+  assign diff_abs = ld_cell_diff[11] ? (~ld_cell_diff + 1) : ld_cell_diff;
+  assign diff_gt_1_4 = diff_abs > (lft_ld + rght_ld)/4;
+  assign diff_gt_15_16 = diff_abs > (lft_ld + rght_ld)*15/16;
   assign sum_gt_min = (lft_ld + rght_ld) > MIN_RIDER_WEIGHT ? 1 : 0;
   assign tmr_full = fast_sim ? &tmr[14:0] : &tmr[25:0]; 
 
