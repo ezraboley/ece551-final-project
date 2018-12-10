@@ -79,9 +79,9 @@ initial begin
 	clock(1);
 
 	rider_lean = 16'h1fff;
-	clock(1000000);
-	rider_lean = 16'h0000;
-	clock(1000000);
+	clock(800000);
+	rider_lean = 0;
+	clock(800000);
 	
 
 //test 3: maintain balance: ld_cell_lft = ld_cell_rght, rider_lean = 0;
@@ -101,31 +101,30 @@ initial begin
 	clock(500);
 
 //test 4: go left : ld_cell_lft = 12'h200,  ld_cell_rght = 12'h140
+	rider_lean = 16'h1500;
+	clock(1500);
 	ld_cell_lft = 12'h200;
 	ld_cell_rght = 12'h140;
 	clock(35000);
-	rider_lean = 16'h1500;
-	clock(1500);
-	rider_lean = 16'hF501;
-	clock(15000);
+
+
+	ld_cell_lft = 12'h200;
+	ld_cell_rght = 12'h200;
+	clock(35000);
 
 //test 5; go right : ld_cell_lft = 12'150, ld_cell_rght = 12'h202
 // 
 	ld_cell_lft = 12'h140;
 	ld_cell_rght = 12'h200;
 	clock(35000);
-	rider_lean = 16'h1500;
-	clock(1500);
-	rider_lean = 16'hF501;
-	clock(15000);
 	
 //test 10: still on, no signal sent; one foot off -- disable en_steer, waiting-- rider_off =1;
-	ld_cell_lft = 12'h140;
+	ld_cell_lft = 12'h240;
 	ld_cell_rght = 12'h0;
-	clock(3500);
+	clock(35000);
 	ld_cell_lft = 12'h140;
 	ld_cell_rght = 12'h145;	
-	clock(3500);
+	clock(35000);
 	
 	
 //test 8: send 's', check still go

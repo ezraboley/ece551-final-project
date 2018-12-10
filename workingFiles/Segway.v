@@ -35,7 +35,6 @@ module Segway(clk,RST_n,LED,INERT_SS_n,INERT_MOSI,
   wire [11:0] batt;			// battery value supplied to en_steer from A2D intf
   wire nxt;				// tells the A2D intf to begin next conversion
   wire [10:0] lft_spd;			// speed of left motor send into motor driver
-  wire [15:0] ptch;			// value for pitch of the segway
   wire rider_off;			// high when the rider is no longer on the Segway
   wire [10:0] rght_spd;			// speed of right motor send into motor driver
   wire lft_rev;				// tells motor driver which direction to drive left motor
