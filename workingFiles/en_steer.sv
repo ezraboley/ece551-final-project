@@ -21,7 +21,7 @@ module en_steer(clk, rst_n, lft_ld, rght_ld, en_steer, rider_off, ld_cell_diff);
   input [11:0] lft_ld; // load form left cell
   input [11:0] rght_ld; // load from right cell
   
-  output [11:0] ld_cell_diff;	// difference of left and right loads
+  output signed [11:0] ld_cell_diff;	// difference of left and right loads
   wire diff_gt_1_4;		// asserted if load cell difference exceeds 1/4 sum (rider not situated)
   wire diff_gt_15_16;		// asserted if load cell difference is great (rider stepping off)
   output reg en_steer;	// enables steering (goes to balance_cntrl)

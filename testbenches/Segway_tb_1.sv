@@ -22,7 +22,7 @@ reg [11:0] batt_V;		// battery voltage
 wire cmd_sent;
 // Perhaps more needed?
 //counter for rider_lean
-reg [12:0] lean_counter;
+reg [13:0] lean_counter;
 reg zero;
 reg [12:0] i;
 ////////////////////////////////////////////////////////////////
@@ -56,13 +56,6 @@ Segway iDUT(.clk(clk),.RST_n(RST_n),.LED(),.INERT_SS_n(SS_n),.INERT_MOSI(MOSI),
 //// You need something to send the 'g' for go ////////////////
 UART_tx iTX(.clk(clk),.rst_n(RST_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx_done(cmd_sent));
 
-always_ff@(posedge clk, negedge RST_n)begin
-	if(~RST_n) lean_counter <= 0;
-	else if(zero) lean_counter <= 0;
-	else lean_counter <= lean_counter + 1;
-	
-end
-
 
 initial begin
 	//Initialize: perhaps you make a task that initializes everything?  
@@ -84,39 +77,42 @@ initial begin
 	send_g;
 	repeat(20)@(posedge iDUT.iDC.iINERT.wrt);
 	clock(1);
+
 	ld_cell_lft = 12'h150;
 	ld_cell_rght = 12'h156;
 	rider_lean = 16'h1fff;
-	clock(5000000);
+	clock(1000000);
 	rider_lean = 16'h0000;
-	clock(5000000);
+	clock(1000000);
 	
 
-/*//test 3: maintain balance: ld_cell_lft = ld_cell_rght, rider_lean = 0;
+//test 3: maintain balance: ld_cell_lft = ld_cell_rght, rider_lean = 0;
 	ld_cell_lft = 12'h150;
 	ld_cell_rght = 12'h156;
-	for(i = 0; i < 5000; i= i + 1 )begin
-	clock;
-	rider_lean = lean_counter;
+	for(i = 0; i < 500; i = i + 1)begin
+		clock(100);
+		rider_lean = rider_lean + 100;
 	end
-	repeat(5)clock;
-	zero = 1;
-	repeat(3)clock;
-	zero = 0 ;
-	for(i = 0; i < 5000; i= i + 1 )begin
-	clock;
-	rider_lean = ~lean_counter + 1;
+	clock(5);
+	rider_lean = 0;
+	clock(5);
+	for(i = 0; i < 500; i= i + 1)begin
+		clock(100);
+		rider_lean = rider_lean - 100;
 	end
-	
+	clock(5); 
+	rider_lean = 0;
+	clock(500);
+
 //test 4: go left : ld_cell_lft = 12'h200,  ld_cell_rght = 12'h140
 	ld_cell_lft = 12'h200;
 	ld_cell_rght = 12'h140;
-	rider_lean = 16'h0500;
-	repeat(5)clock;
+	rider_lean = 16'h1500;
+	clock(15000);
 	rider_lean = 16'hF501;
-	repeat(5)clock;
+	clock(15000);
 
-//test 5; go right : ld_cell_lft = 12'150, ld_cell_rght = 12'h202
+/*/test 5; go right : ld_cell_lft = 12'150, ld_cell_rght = 12'h202
 // 
 	ld_cell_lft = 12'h140;
 	ld_cell_rght = 12'h200;
@@ -154,8 +150,8 @@ initial begin
     .
 	.	// this is the "guts" of your test
 	.
-	*/
- // $display("YAHOO! test passed!");*/
+	
+ // $display("YAHOO! test passed!"); */
   
   $stop();
 end
