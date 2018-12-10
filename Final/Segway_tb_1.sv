@@ -24,8 +24,6 @@ reg [11:0] batt_V;		// battery voltage
 wire cmd_sent;
 // Perhaps more needed?
 //counter for rider_lean
-reg [13:0] lean_counter;
-reg zero;
 reg [12:0] i;
 ////////////////////////////////////////////////////////////////
 // Instantiate Physical Model of Segway with Inertial sensor //
@@ -69,13 +67,13 @@ initial begin
 	ld_cell_lft = 12'h156;
 	ld_cell_rght = 12'h150;
 	
-	clock(15);
+	clock(15000);
 
 //test 2: send 'go' to power up the segway -- pwr_up?
 //		  rider hop-up -- load on 
 //		ld_cell_lft + ld_cell_rght > 12'h200
 
-	clock(1);
+	clock(1000);
 	send_g;
 	clock(500000);
 
@@ -121,7 +119,7 @@ initial begin
 	clock(15000);
 	
 //test 10: still on, no signal sent; one foot off -- disable en_steer, waiting-- rider_off =1;
-	ld_cell_lft = 12'h140;
+	ld_cell_lft = 12'h240;
 	ld_cell_rght = 12'h0;
 	clock(3500);
 	ld_cell_lft = 12'h140;
