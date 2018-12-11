@@ -101,4 +101,4 @@ task clock;
 	repeat(num)@(posedge clk);
 	@(negedge clk);
 endtask
-	
+

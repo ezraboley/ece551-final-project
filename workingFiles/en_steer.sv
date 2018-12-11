@@ -32,7 +32,7 @@ module en_steer(clk, rst_n, lft_ld, rght_ld, en_steer, rider_off, ld_cell_diff);
   reg clr_tmr;
   wire tmr_full;
   reg[25:0] tmr;
-  reg[11:0] diff_abs;
+  wire[11:0] diff_abs;
 
   //assign statements
   assign ld_cell_diff = lft_ld - rght_ld;
@@ -69,7 +69,10 @@ module en_steer(clk, rst_n, lft_ld, rght_ld, en_steer, rider_off, ld_cell_diff);
 			 next_state = WAIT;
 			 clr_tmr = 1;
 			end
-			else next_state = state;
+			else begin
+				next_state = IDLE;
+				rider_off = 1;
+			end
 		WAIT : if(~sum_gt_min) begin //Check if rider has fallen/stepped off
 			 next_state = IDLE;
 			 rider_off = 1;

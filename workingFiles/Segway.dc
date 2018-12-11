@@ -44,6 +44,7 @@ set_max_transition 0.10 [current_design]
 set_clock_uncertainty 0.15 clk
 set_fix_hold clk
 
+#set_max_area 0
 
 ####################################################
 # set sequential mapping t enable output inversion #
@@ -53,7 +54,7 @@ set compile_seqmap_enable_output_inversion true
 ###################################
 # Now actually synthesize for 1st time #
 ########################################
-compile -map_effort low
+compile -map_effort medium
 
 check_design
 
@@ -62,7 +63,8 @@ report_timing -delay max
 report_timing -delay min
 
 ungroup -all -flatten
-compile -map_effort medium
+set_fix_hold clk
+compile_ultra -gate_clock -no_autoungroup
 
 check_design
 report_area

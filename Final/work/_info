@@ -10,14 +10,14 @@ cModel Technology
 dC:/AppV5/Quartus_16.v2
 vA2D_intf
 Z0 DXx6 sv_std 3 std 0 22 <EOTafDcUY:cQeO^ICn]m3
-Z1 !s110 1544422529
+Z1 !s110 1544472824
 !i10b 1
 !s100 E4[o@mFW0f[j3QSXb7]RB2
 I0@6gNf27SR=Uj@6>z9OIN2
 Z2 V`JN@9S9cnhjKRR_L]QIcM3
 !s105 A2D_intf_sv_unit
 S1
-Z3 dI:/ece551/Final
+Z3 dI:/ece551/ece551-final-project/Final
 Z4 w1544353197
 8I:/ece551/Final/A2D_intf.sv
 FI:/ece551/Final/A2D_intf.sv
@@ -26,7 +26,7 @@ Z5 OE;L;10.3c;59
 r1
 !s85 0
 31
-!s108 1544422529.564000
+!s108 1544472824.855000
 !s107 I:/ece551/Final/A2D_intf.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/A2D_intf.sv|
 !i113 0
@@ -49,7 +49,7 @@ w1544346560
 FI:/ece551/Final/ADC128S.sv
 L0 1
 R5
-!s108 1544422529.895000
+!s108 1544472825.253000
 !s107 I:/ece551/Final/ADC128S.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/ADC128S.sv|
 !i113 0
@@ -57,7 +57,7 @@ R6
 n@a@d@c128@s
 vAUTH_blk
 R0
-Z7 !s110 1544422530
+!s110 1544472825
 !i10b 1
 !s100 3MIaU>68X?8=D58?42=nR1
 Ii>;4UjNJ<LE>mDeH_SGfU1
@@ -65,7 +65,7 @@ R2
 !s105 AUTH_blk_sv_unit
 S1
 R3
-Z8 w1544391746
+Z7 w1544391746
 8I:/ece551/Final/AUTH_blk.sv
 FI:/ece551/Final/AUTH_blk.sv
 L0 1
@@ -73,7 +73,7 @@ R5
 r1
 !s85 0
 31
-!s108 1544422530.251000
+!s108 1544472825.751000
 !s107 I:/ece551/Final/AUTH_blk.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/AUTH_blk.sv|
 !i113 0
@@ -81,7 +81,7 @@ R6
 n@a@u@t@h_blk
 vbalance_cntrl
 R0
-R7
+Z8 !s110 1544472828
 !i10b 1
 !s100 XEWV>7ZaVIcX;m3c7k^Mm0
 Id0nHn=COe4fYg2TK0]>nP0
@@ -97,14 +97,14 @@ R5
 r1
 !s85 0
 31
-!s108 1544422530.607000
+!s108 1544472828.278000
 !s107 I:/ece551/Final/balance_cntrl.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/balance_cntrl.sv|
 !i113 0
 R6
 vDigital_Core
 R0
-Z9 !s110 1544422531
+R8
 !i10b 1
 !s100 FEIlP_Z>Z1QFZ<NDEkZD31
 I]L<g8;B;XQV7IzG5hXoe80
@@ -120,7 +120,7 @@ R5
 r1
 !s85 0
 31
-!s108 1544422530.959000
+!s108 1544472828.776000
 !s107 I:/ece551/Final/Digital_Core.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/Digital_Core.sv|
 !i113 0
@@ -128,7 +128,7 @@ R6
 n@digital_@core
 ven_steer
 R0
-R9
+!s110 1544472829
 !i10b 1
 !s100 X;f:7W0EI?<zSZkH^;:o>2
 Iz3b0Yle;9AA8BNK[Uk>TQ1
@@ -144,14 +144,14 @@ R5
 r1
 !s85 0
 31
-!s108 1544422531.602000
+!s108 1544472829.573000
 !s107 I:/ece551/Final/en_steer.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/en_steer.sv|
 !i113 0
 R6
 ven_steer_tb
 R0
-Z10 !s110 1544422532
+Z9 !s110 1544472830
 !i10b 1
 !s100 aMNzlTkn7e8MJ`;>:XYcj0
 Ij?eB@X2fjh4]c`HMP54eV2
@@ -159,7 +159,7 @@ R2
 !s105 en_steer_tb_sv_unit
 S1
 R3
-Z11 w1544341740
+Z10 w1544341740
 8I:/ece551/Final/en_steer_tb.sv
 FI:/ece551/Final/en_steer_tb.sv
 L0 1
@@ -167,14 +167,14 @@ R5
 r1
 !s85 0
 31
-!s108 1544422531.922000
+!s108 1544472829.960000
 !s107 I:/ece551/Final/en_steer_tb.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/en_steer_tb.sv|
 !i113 0
 R6
 vinert_intf
 R0
-R10
+R9
 !i10b 1
 !s100 m<o0P08:LAlaeo0WP3C0^2
 IKPL>nN[7jTck5KbcPehGU0
@@ -190,14 +190,14 @@ R5
 r1
 !s85 0
 31
-!s108 1544422532.261000
+!s108 1544472830.370000
 !s107 I:/ece551/Final/inert_intf.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/inert_intf.sv|
 !i113 0
 R6
 vinert_intf_tb
 R0
-R10
+R9
 !i10b 1
 !s100 `deB>:da`BeEN6MkJ_7@20
 IG=J3ClMC9cz3=a76DT:Kb0
@@ -205,7 +205,7 @@ R2
 !s105 inert_intf_tb_sv_unit
 S1
 R3
-R11
+R10
 8I:/ece551/Final/inert_intf_tb.sv
 FI:/ece551/Final/inert_intf_tb.sv
 L0 1
@@ -213,14 +213,14 @@ R5
 r1
 !s85 0
 31
-!s108 1544422532.597000
+!s108 1544472830.806000
 !s107 I:/ece551/Final/inert_intf_tb.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/inert_intf_tb.sv|
 !i113 0
 R6
 vinert_intf_test
 R0
-!s110 1544422533
+Z11 !s110 1544472831
 !i10b 1
 !s100 11l@^;TP_>oDa[N^HQO_b1
 I4`iTLP`g`8>WLki5`8Ec>3
@@ -236,14 +236,14 @@ R5
 r1
 !s85 0
 31
-!s108 1544422532.937000
+!s108 1544472831.187000
 !s107 I:/ece551/Final/inert_intf_test.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/inert_intf_test.sv|
 !i113 0
 R6
 vinertial_integrator
 R0
-Z13 !s110 1544422534
+R11
 !i10b 1
 !s100 ;TfW25?aoLK4GbSNLkd7i2
 IzocYVA>g4E3WmFm7QVDG@0
@@ -259,14 +259,14 @@ R5
 r1
 !s85 0
 31
-!s108 1544422534.072000
+!s108 1544472831.641000
 !s107 I:/ece551/Final/inertial_integrator.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/inertial_integrator.sv|
 !i113 0
 R6
 vmtr_drv
 R0
-R13
+Z13 !s110 1544472832
 !i10b 1
 !s100 cN9NkYf5`Un;<HmE`L6Zo2
 IO;4RBEiF?6ldQN:S0lCWJ0
@@ -282,7 +282,7 @@ R5
 r1
 !s85 0
 31
-!s108 1544422534.403000
+!s108 1544472832.046000
 !s107 I:/ece551/Final/mtr_drv.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/mtr_drv.sv|
 !i113 0
@@ -305,14 +305,14 @@ R5
 r1
 !s85 0
 31
-!s108 1544422534.792000
+!s108 1544472832.450000
 !s107 I:/ece551/Final/piezo.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/piezo.sv|
 !i113 0
 R6
 vPWM11
 R0
-Z14 !s110 1544422535
+R13
 !i10b 1
 !s100 LMCI21>BleOQn3jXc>hn:2
 IJ4QOLMgnoEz?5Dj[GHWYl3
@@ -320,7 +320,7 @@ R2
 !s105 PWM11_sv_unit
 S1
 R3
-R11
+R10
 8I:/ece551/Final/PWM11.sv
 FI:/ece551/Final/PWM11.sv
 L0 1
@@ -328,7 +328,7 @@ R5
 r1
 !s85 0
 31
-!s108 1544422535.160000
+!s108 1544472832.870000
 !s107 I:/ece551/Final/PWM11.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/PWM11.sv|
 !i113 0
@@ -336,7 +336,7 @@ R6
 n@p@w@m11
 vrst_synch
 R0
-R14
+!s110 1544472833
 !i10b 1
 !s100 AJ9l2=U^Vo^8Z[?iBa:R93
 II>YjH]T_L@[B91ZVW]W6W1
@@ -352,7 +352,7 @@ R5
 r1
 !s85 0
 31
-!s108 1544422535.525000
+!s108 1544472833.311000
 !s107 I:/ece551/Final/rst_synch.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/rst_synch.sv|
 !i113 0
@@ -371,7 +371,7 @@ w1544422008
 FI:/ece551/Final/Segway.vg
 L0 8
 R5
-!s108 1544422539.992000
+!s108 1544472839.020000
 !s107 I:/ece551/Final/Segway.vg|
 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|I:/ece551/Final/Segway.vg|
 !i113 0
@@ -384,18 +384,18 @@ r1
 !s85 0
 31
 !i10b 1
-!s100 iEZ[2eEjz7aI@<7z[zbQd3
-IjT6>AaQ7GVWMWzT4lb=EV0
+!s100 B@A[1`P^R`YDj8gFQNEMN1
+I>FHm10ZU]Mb>o]NG1FWS21
 !s105 Segway_tb_1_sv_unit
 S1
 R3
-w1544422874
+w1544474191
 8I:/ece551/Final/Segway_tb_1.sv
 FI:/ece551/Final/Segway_tb_1.sv
 Ftb_tasks.sv
 L0 3
 R5
-!s108 1544422876.337000
+!s108 1544474221.993000
 !s107 tb_tasks.sv|I:/ece551/Final/Segway_tb_1.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/Segway_tb_1.sv|
 !i113 0
@@ -418,7 +418,7 @@ w1544422412
 FI:/ece551/Final/SegwayModel.sv
 L0 2
 R5
-!s108 1544422536.537000
+!s108 1544473000.409000
 !s107 I:/ece551/Final/SegwayModel.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/SegwayModel.sv|
 !i113 0
@@ -441,7 +441,7 @@ R12
 FI:/ece551/Final/SPI_ADC128S.sv
 L0 1
 R5
-!s108 1544422536.982000
+!s108 1544472834.918000
 !s107 I:/ece551/Final/SPI_ADC128S.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/SPI_ADC128S.sv|
 !i113 0
@@ -449,7 +449,7 @@ R6
 n@s@p@i_@a@d@c128@s
 vSPI_mstr16
 R0
-Z15 !s110 1544422537
+!s110 1544472835
 !i10b 1
 !s100 BgfE<SDicn^V]NA3:ioF=1
 I6?;1CT5C4]X5LFz[KE<^:1
@@ -465,7 +465,7 @@ R5
 r1
 !s85 0
 31
-!s108 1544422537.448000
+!s108 1544472835.411000
 !s107 I:/ece551/Final/SPI_mstr16.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/SPI_mstr16.sv|
 !i113 0
@@ -473,7 +473,7 @@ R6
 n@s@p@i_mstr16
 vsteer_en
 R0
-R15
+!s110 1544472836
 !i10b 1
 !s100 O;fj;74<a@Ec<EV=S;5>@2
 IoHn<_R;X7WJ8S_<m60QJ_2
@@ -489,14 +489,14 @@ R5
 r1
 !s85 0
 31
-!s108 1544422537.818000
+!s108 1544472835.936000
 !s107 I:/ece551/Final/steer_en.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/steer_en.sv|
 !i113 0
 R6
 vUART_rcv
 R0
-!s110 1544422538
+Z14 !s110 1544472837
 !i10b 1
 !s100 4@MIU5_8QWSkW<No9hSXh2
 I^]5^;X:?X[GiHE1:6YlnG3
@@ -512,7 +512,7 @@ R5
 r1
 !s85 0
 31
-!s108 1544422538.578000
+!s108 1544472837.237000
 !s107 I:/ece551/Final/UART_rcv.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/UART_rcv.sv|
 !i113 0
@@ -520,7 +520,7 @@ R6
 n@u@a@r@t_rcv
 vUART_rcv_tb
 R0
-Z16 !s110 1544422539
+R14
 !i10b 1
 !s100 9=aJTW;T<`=CSR7iea>[83
 I_RcT8jVIKnc?zan[E59F_1
@@ -536,7 +536,7 @@ R5
 r1
 !s85 0
 31
-!s108 1544422538.940000
+!s108 1544472837.643000
 !s107 I:/ece551/Final/UART_rcv_tb.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/UART_rcv_tb.sv|
 !i113 0
@@ -544,7 +544,7 @@ R6
 n@u@a@r@t_rcv_tb
 vUART_tb
 R0
-R16
+!s110 1544472838
 !i10b 1
 !s100 QKeOnCgN@D>C6OM6mf[gE2
 IFiTBKmUHAoldYa0WY;a?g3
@@ -560,7 +560,7 @@ R5
 r1
 !s85 0
 31
-!s108 1544422539.295000
+!s108 1544472838.120000
 !s107 I:/ece551/Final/UART_tb.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/UART_tb.sv|
 !i113 0
@@ -578,12 +578,12 @@ I5d>@l>J^2bU>;D4iZISBm1
 !s105 UART_tx_sv_unit
 S1
 R3
-R8
+R7
 8I:/ece551/Final/UART_tx.sv
 FI:/ece551/Final/UART_tx.sv
 L0 1
 R5
-!s108 1544422539.644000
+!s108 1544472838.560000
 !s107 I:/ece551/Final/UART_tx.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/UART_tx.sv|
 !i113 0
@@ -607,7 +607,7 @@ R5
 r1
 !s85 0
 31
-!s108 1544422528.417000
+!s108 1544472823.873000
 !s107 I:/ece551/Final/UART_tx_tb.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|I:/ece551/Final/UART_tx_tb.sv|
 !i113 0

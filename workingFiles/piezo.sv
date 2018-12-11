@@ -17,11 +17,6 @@ always_ff@(posedge clk, negedge rst_n)begin
 	
 end
 
-/*always_ff@(posedge clk, negedge rst_n)begin
-	if(~rst_n) piezo_freq <= 0;
-	else if(time_en) piezo_freq <= freq;
-	else piezo_freq <= 0;
-end	*/
 assign piezo_freq = time_en? freq :0;
 
 assign freq = (norm_mode || batt_low)? counter[13] : ovr_spd? counter[12]:0;

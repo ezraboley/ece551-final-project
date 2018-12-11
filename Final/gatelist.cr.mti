@@ -123,33 +123,12 @@ Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
 Top level modules:
 	UART_tx_tb
 
-} {} {}} I:/ece551/Final/Segway_tb_1.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/Segway_tb_1.sv
-Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
--- Compiling module Segway_tb_1
-
-Top level modules:
-	Segway_tb_1
-
 } {} {}} I:/ece551/Final/Segway.v {1 {vlog -work work -vopt -stats=none I:/ece551/Final/Segway.v
 Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
 -- Compiling module Segway
 
 Top level modules:
 	Segway
-
-} {} {}} I:/ece551/Final/UART_rcv.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/UART_rcv.sv
-Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
--- Compiling module UART_rcv
-
-Top level modules:
-	UART_rcv
-
-} {} {}} I:/ece551/Final/inertial_integrator.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/inertial_integrator.sv
-Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
--- Compiling module inertial_integrator
-
-Top level modules:
-	inertial_integrator
 
 } {} {}} I:/ece551/Final/ADC128S.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/ADC128S.sv
 Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
@@ -158,12 +137,33 @@ Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
 Top level modules:
 	ADC128S
 
+} {} {}} I:/ece551/Final/inertial_integrator.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/inertial_integrator.sv
+Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
+-- Compiling module inertial_integrator
+
+Top level modules:
+	inertial_integrator
+
+} {} {}} I:/ece551/Final/UART_rcv.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/UART_rcv.sv
+Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
+-- Compiling module UART_rcv
+
+Top level modules:
+	UART_rcv
+
 } {} {}} I:/ece551/Final/A2D_intf.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/A2D_intf.sv
 Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
 -- Compiling module A2D_intf
 
 Top level modules:
 	A2D_intf
+
+} {} {}} I:/ece551/Final/UART_tb.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/UART_tb.sv
+Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
+-- Compiling module UART_tb
+
+Top level modules:
+	UART_tb
 
 } {} {}} I:/ece551/Final/SegwayModel.sv {2 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/SegwayModel.sv
 Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
@@ -173,13 +173,6 @@ Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
 
 Top level modules:
 	SegwayModel
-
-} {} {}} I:/ece551/Final/UART_tb.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/UART_tb.sv
-Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
--- Compiling module UART_tb
-
-Top level modules:
-	UART_tb
 
 } {} {}} I:/ece551/Final/digital_core_tb.sv {0 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/digital_core_tb.sv
 Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
@@ -234,30 +227,6 @@ Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
 Top level modules:
 	Segway
 
-} {} {}} I:/ece551/Final/steer_en.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/steer_en.sv
-Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
--- Compiling module steer_en
-
-Top level modules:
-	steer_en
-
-} {} {}} I:/ece551/Final/Segway_tb.sv {0 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/Segway_tb.sv
-Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
--- Compiling module Segway_tb
-** Error: I:/ece551/Final/Segway_tb.sv(3): near "'i": Illegal base specifier in numeric constant.
-** Error: I:/ece551/Final/Segway_tb.sv(3): near "'i": syntax error, unexpected BASE
-** Error: I:/ece551/Final/Segway_tb.sv(3): Expecting numeric digits.
-** Error: I:/ece551/Final/Segway_tb.sv(77): near ".": syntax error, unexpected '.'
-** Error: I:/ece551/Final/Segway_tb.sv(89): Cannot find `include file "tb_tasks.v" in directories:
-    C:/ProgramData/App-V/2191B702-5279-4048-91BA-BCF8F2A20B49/3C5B5D32-C303-48A2-8738-F357EDE80167/Root/ovm-2.1.2/../verilog_src/ovm-2.1.2/src, C:/ProgramData/App-V/2191B702-5279-4048-91BA-BCF8F2A20B49/3C5B5D32-C303-48A2-8738-F357EDE80167/Root/uvm-1.1d/../verilog_src/uvm-1.1d/src
-
-} {4.0 9.0} {}} I:/ece551/Final/rst_synch.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/rst_synch.sv
-Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
--- Compiling module rst_synch
-
-Top level modules:
-	rst_synch
-
 } {} {}} I:/ece551/Final/en_steer.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/en_steer.sv
 Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
 -- Compiling module en_steer
@@ -265,12 +234,26 @@ Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
 Top level modules:
 	en_steer
 
-} {} {}} I:/ece551/Final/PWM11.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/PWM11.sv
+} {} {}} I:/ece551/Final/rst_synch.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/rst_synch.sv
 Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
--- Compiling module PWM11
+-- Compiling module rst_synch
 
 Top level modules:
-	PWM11
+	rst_synch
+
+} {} {}} I:/ece551/Final/steer_en.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/steer_en.sv
+Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
+-- Compiling module steer_en
+
+Top level modules:
+	steer_en
+
+} {} {}} I:/ece551/Final/Digital_Core.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/Digital_Core.sv
+Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
+-- Compiling module Digital_Core
+
+Top level modules:
+	Digital_Core
 
 } {} {}} I:/ece551/Final/mtr_drv.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/mtr_drv.sv
 Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
@@ -279,11 +262,11 @@ Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
 Top level modules:
 	mtr_drv
 
-} {} {}} I:/ece551/Final/Digital_Core.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/Digital_Core.sv
+} {} {}} I:/ece551/Final/PWM11.sv {1 {vlog -work work -vopt -sv -stats=none I:/ece551/Final/PWM11.sv
 Model Technology ModelSim SE vlog 10.3c Compiler 2014.07 Jul 19 2014
--- Compiling module Digital_Core
+-- Compiling module PWM11
 
 Top level modules:
-	Digital_Core
+	PWM11
 
 } {} {}}

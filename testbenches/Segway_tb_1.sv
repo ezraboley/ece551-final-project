@@ -22,8 +22,7 @@ reg [11:0] batt_V;		// battery voltage
 wire cmd_sent;
 // Perhaps more needed?
 //counter for rider_lean
-reg [13:0] lean_counter;
-reg zero;
+reg NEWTEST;
 reg [12:0] i;
 ////////////////////////////////////////////////////////////////
 // Instantiate Physical Model of Segway with Inertial sensor //
@@ -56,35 +55,36 @@ Segway iDUT(.clk(clk),.RST_n(RST_n),.LED(),.INERT_SS_n(SS_n),.INERT_MOSI(MOSI),
 //// You need something to send the 'g' for go ////////////////
 UART_tx iTX(.clk(clk),.rst_n(RST_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx_done(cmd_sent));
 
-
+typedef enum {RIDER_ON, GO, LEAN, BALANCE, LEFT, RIGHT, LEFT_BACK, RIGHT_BACK, ONE_FOOT, FALL, STOP, RESTART} test_t;
+test_t test;
 initial begin
-	//Initialize: perhaps you make a task that initializes everything?  
+	//Initialize values and reset DUT
     	init_Segway;
   	RST_DUT_n;
  
-//test 1: !'go' && rider_on -- not do anything
-	clock(5);
+//Test 1: RIDER_ON - rider steps on, but go command is NOT sent yet
+	test = RIDER_ON;
+	clock(50);
 	ld_cell_lft = 12'h156;
-	ld_cell_rght = 12'h150;
+	ld_cell_rght = 12'h156;
 	
-	clock(15);
+	clock(1500);
 
-//test 2: send 'go' to power up the segway -- pwr_up?
-//		  rider hop-up -- load on 
-//		ld_cell_lft + ld_cell_rght > 12'h200
-
-	clock(1);
+//Test 2: GO - send go command to power up the segway 
+	test = GO;
 	send_g;
-	repeat(20)@(posedge iDUT.iDC.iINERT.wrt);
-	clock(1);
+	repeat(10)@(posedge iDUT.iDC.iINERT.wrt);
+	clock(500);
 
+//Test 3: LEAN - rider leans forward (extreme value to test correction) 
 	rider_lean = 16'h1fff;
 	clock(800000);
 	rider_lean = 0;
 	clock(800000);
 	
 
-//test 3: maintain balance: ld_cell_lft = ld_cell_rght, rider_lean = 0;
+//Test 4: BALANCE - gradually have rider lean forward then backward 
+	test = BALANCE;
 	for(i = 0; i < 500; i = i + 1)begin
 		clock(100);
 		rider_lean = rider_lean + 100;
@@ -100,56 +100,90 @@ initial begin
 	rider_lean = 0;
 	clock(500);
 
-//test 4: go left : ld_cell_lft = 12'h200,  ld_cell_rght = 12'h140
+//Test 5: LEFT - turn left
+	test = LEFT;
 	rider_lean = 16'h1500;
-	clock(1500);
+	clock(35000);
 	ld_cell_lft = 12'h200;
 	ld_cell_rght = 12'h140;
 	clock(35000);
 
-
+	//Straighten out
 	ld_cell_lft = 12'h200;
 	ld_cell_rght = 12'h200;
-	clock(35000);
+	clock(350000);
 
-//test 5; go right : ld_cell_lft = 12'150, ld_cell_rght = 12'h202
-// 
+//Test 6: RIGHT - turn right
+	test = RIGHT;
 	ld_cell_lft = 12'h140;
 	ld_cell_rght = 12'h200;
 	clock(35000);
 	
-//test 10: still on, no signal sent; one foot off -- disable en_steer, waiting-- rider_off =1;
+	//Straighten out
+	ld_cell_lft = 12'h200;
+	ld_cell_rght = 12'h200;
+	clock(350000);
+
+//Test 7: LEFT_BACK - turn 'left' while leaning back
+	test = LEFT_BACK;
+	rider_lean = -16'h1500;
+	clock(35000);
+	ld_cell_lft = 12'h200;
+	ld_cell_rght = 12'h140;
+	clock(350000);
+	
+	//Straighten out
+	ld_cell_lft = 12'h200;
+	ld_cell_rght = 12'h200;
+	clock(350000);
+
+//Test 8: RIGHT_BACK - turn 'right' while leaning back
+	test = RIGHT_BACK;
+	ld_cell_lft = 12'h140;
+	ld_cell_rght = 12'h200;
+	clock(350000);
+	
+	//Straighten out
+	ld_cell_lft = 12'h200;
+	ld_cell_rght = 12'h200;
+	clock(350000);
+
+//Test 9: ONE_FOOT - have rider on segway with only one foot
+	test = ONE_FOOT;
 	ld_cell_lft = 12'h240;
 	ld_cell_rght = 12'h0;
-	clock(35000);
+	clock(350000);
+
+	//Redistribute weight
 	ld_cell_lft = 12'h140;
 	ld_cell_rght = 12'h145;	
+	clock(350000);
+	
+//Test 10: FALL - simulate rider falling off segway
+	test = FALL;
+	ld_cell_lft = 0;
+	ld_cell_rght = 0;
 	clock(35000);
-	
-	
-//test 8: send 's', check still go
+
+//Test 11: STOP - send stop command to segway after rider has fallen off
+	test = STOP;
 	send_s;
+	repeat(10)@(posedge iDUT.iDC.iINERT.wrt);
 	clock(500);
 
-//test 9: step off, check segway stopped 
-	ld_cell_lft = 12'h0;
-	ld_cell_rght = 12'h0;
+//Test 12: RESTART - have segway power up again by sending go command
+	test = RESTART;
+	send_g;
+	repeat(10)@(posedge iDUT.iDC.iINERT.wrt);
 	clock(500);
 
+	//Rider steps on and leans forward slightly
+	ld_cell_lft = 12'h240;
+	ld_cell_rght = 12'h240;
+	clock(35000);
+	rider_lean = 12'h0500;
+	clock(350000);
 
-//
-//  repeat(50000) @(posedge clk);
-   
-
-
-/* SendCmd(8'h67);	// perhaps you have a task that sends 'g'
-
-    .
-	.	// this is the "guts" of your test
-	.
-	
- // $display("YAHOO! test passed!"); */
-  
   $stop();
 end
 
@@ -157,6 +191,6 @@ end
 always
   #10 clk = ~clk;
 
-`include "tb_tasks.sv"	// perhaps you have a separate included file that has handy tasks.
+`include "tb_tasks.sv"	//Separate file containing tasks
 
 endmodule	

@@ -1,74 +1,63 @@
-module AUTH_blk(RX, pwr_up, clk, rst_n, rider_off);
-output reg pwr_up;
-input rst_n, clk, RX, rider_off;
+module AUTH_blk(pwr_up, clk, rst_n, rider_off, RX);
+	input clk, rst_n, rider_off, RX;
+	output reg pwr_up;
+	reg clr_rx_rdy, rx_rdy;
+	reg[7:0] rx_data;
+	wire stop, go;
+	typedef enum{WAIT, PWR1, PWR2} state_t;
+	state_t next_state, state;
 
-reg [7:0]rx_data;
-reg rx_rdy;
-reg clr_rx_rdy;
-parameter [7:0]g = 8'h67;
+	UART_rcv receiver(.RX(RX), .clk(clk), .rst_n(rst_n), .clr_rdy(clr_rx_rdy), .rx_data(rx_data), .rdy(rx_rdy));
 
-parameter [7:0]s = 8'h73;
+	always@(posedge clk, negedge rst_n) begin
+		if(!rst_n) state <= WAIT;
+		else state <= next_state;
+	end
 
-UART_rcv RECV( .clk(clk), .rst_n(rst_n), .RX(RX), .clr_rdy(clr_rx_rdy), .rx_data(rx_data), .rdy(rx_rdy));
+	assign stop = (rx_data == 8'h73);
+	assign go = (rx_data == 8'h67);
 
-typedef enum reg[1:0]{IDLE, GO, WAIT_RD}state_t;
-state_t state, nxt_state;
-
-////////////////////////////////////////////////////////////////////////////////////////////
-//SM starts
-always_ff@(posedge clk, negedge rst_n)begin
-	if(!rst_n) state <= IDLE;
-	else state <= nxt_state;
-	
-end
-
-always_comb begin
-//default outputs 
-pwr_up = 0;
-clr_rx_rdy = 0;
-nxt_state = IDLE;
-
-case(state)
-	IDLE : if( (!rider_off) && (rx_data == g) && (rx_rdy)) begin
-				pwr_up = 1;
-				nxt_state = GO;
-	  	end
-			else nxt_state =  IDLE;
-			
-			//when rider leaves and we received stop signal
-	GO : if(rider_off && (rx_data == s ) && rx_rdy) begin
-				pwr_up =0;
-				nxt_state = IDLE;
-				clr_rx_rdy = 1;
-		end
-			//but if rider is not off with stop signal, segway is still powered up
-		else if( (!rider_off) && (rx_data == s ) && rx_rdy )begin
-				pwr_up = 1;
-				nxt_state = WAIT_RD;
-			 end
-			 else begin 
-				nxt_state = GO;
-				pwr_up =1;
+	always_comb begin
+		clr_rx_rdy = 0;
+		pwr_up = 0;
+		next_state = WAIT;
+		case(state)
+			WAIT:
+			begin
+				if(go && rx_rdy) begin
+					next_state = PWR1;
+					clr_rx_rdy = 1;
+				end
+				else next_state = state;
 			end
-
-	WAIT_RD: if(rider_off) begin
-			nxt_state = IDLE;
-			clr_rx_rdy = 1;
-			pwr_up = 0;
+			PWR1:
+			begin
+				pwr_up = 1;
+				if(rx_rdy && stop && rider_off) begin
+					next_state = WAIT;
+					clr_rx_rdy = 1;
+				end
+				else if(rx_rdy && stop) begin
+					next_state = PWR2;
+					clr_rx_rdy = 1;
+				end
+				else next_state = state;
 			end
-		  else begin
-			pwr_up = 1;
-			nxt_state = WAIT_RD;
-		  end
-			
-endcase
-
-
-end
-
+			PWR2:
+			begin
+				pwr_up = 1;
+				if(rider_off) begin
+					next_state = WAIT;
+					clr_rx_rdy = 1;
+				end
+				else if(go && rx_rdy) begin
+					next_state = PWR1;
+					clr_rx_rdy = 1;
+				end
+				else next_state = state;
+			end
+			default: next_state = WAIT;
+		endcase
+	end
 
 endmodule
-
-
-
-
