@@ -64,7 +64,7 @@ report_timing -delay min
 
 ungroup -all -flatten
 set_fix_hold clk
-compile_ultra -gate_clock -no_autoungroup
+compile -map_effort high
 
 check_design
 report_area

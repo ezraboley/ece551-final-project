@@ -102,7 +102,7 @@ initial begin
 
 //Test 5: LEFT - turn left
 	test = LEFT;
-	rider_lean = 16'h1500;
+	rider_lean = 16'h0500;
 	clock(35000);
 	ld_cell_lft = 12'h200;
 	ld_cell_rght = 12'h140;

@@ -59,7 +59,7 @@ module balance_cntrl(clk, rst_n, too_fast, vld, ptch, ld_cell_diff, lft_spd, lft
   
   parameter fast_sim = 0;
   
-  assign too_fast = lft_spd > SPEED_THRESH || rght_spd > SPEED_THRESH;
+  assign too_fast = lft_spd > SPEED_THRESH || rght_spd > SPEED_THRESH ? 1 : 0;
 
   //P term
 	assign ptch_err_sat = ptch[15] ? (&ptch[14:9] ? {ptch[15],ptch[8:0]} : 10'h200) : (|ptch[14:9] ? 10'h1FF : ptch[9:0]); //10 bit saturation of ptch
@@ -72,8 +72,8 @@ module balance_cntrl(clk, rst_n, too_fast, vld, ptch, ld_cell_diff, lft_spd, lft
   //I term
 	assign ptch_err_sat_ext = {{8{ptch_err_sat[9]}},ptch_err_sat[9:0]}; //Sign extend saturated ptch value
 	assign accum = ptch_err_sat_ext + iflop;
-	assign overflow = (ptch_err_sat_ext[17] == iflop[17]) && (accum[17] != iflop[17]); //Check if accumulator has overflow
-	assign valid = vld & ~overflow; //Verify that accumulated value is valid
+	assign overflow = (ptch_err_sat_ext[17] == iflop[17]) && (accum[17] != iflop[17]) ? 1 : 0; //Check if accumulator has overflow
+	assign valid = vld && ~overflow ? 1 : 0; //Verify that accumulated value is valid
 	assign imux1 = valid ? accum : iflop;
 	assign imux2 = (rider_off || ~pwr_up) ? 18'h00000 : imux1;
 	always@(posedge clk, negedge rst_n) begin
@@ -123,8 +123,8 @@ module balance_cntrl(clk, rst_n, too_fast, vld, ptch, ld_cell_diff, lft_spd, lft
   //Shaping torque
 	assign lft_abs = lft_trq_ff[15] ? (~lft_trq_ff[14:0] + 1) : lft_trq_ff[14:0]; //Absolute value of lft_trq
 	assign rght_abs = rght_trq_ff[15] ? (~rght_trq_ff[14:0] + 1) : rght_trq_ff[14:0]; //Absolute value of rght_trq
-	assign lft_gt = lft_abs >= LOW_TORQUE_BAND; //Magnitude compare
-	assign rght_gt = rght_abs >= LOW_TORQUE_BAND; //Magnitude compare
+	assign lft_gt = lft_abs >= LOW_TORQUE_BAND ? 1 : 0; //Magnitude compare
+	assign rght_gt = rght_abs >= LOW_TORQUE_BAND ? 1 : 0; //Magnitude compare
 	assign lft_min = lft_trq_ff[15] ? (~MIN_DUTY + 1) : MIN_DUTY; //Based on sign of lft_trq, change sign of MIN_duty to follow addition/subtraction
 	assign rght_min = rght_trq_ff[15] ? (~MIN_DUTY + 1) : MIN_DUTY; //Based on sign of rght_trq, change sign of MIN_duty to follow addition/subtraction
 	assign lft_shaped = lft_gt ? (lft_trq_ff + lft_min) : (lft_trq_ff * ($signed(GAIN_MULTIPLIER)));
