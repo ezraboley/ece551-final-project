@@ -63,7 +63,7 @@ module balance_cntrl(clk, rst_n, too_fast, vld, ptch, ld_cell_diff, lft_spd, lft
 
   //P term
 	assign ptch_err_sat = ptch[15] ? (&ptch[14:9] ? {ptch[15],ptch[8:0]} : 10'h200) : (|ptch[14:9] ? 10'h1FF : ptch[9:0]); //10 bit saturation of ptch
-	assign ptch_p_term = ptch_err_sat * ($signed(P_COEFF));
+	assign ptch_p_term = ptch_err_sat<<<4 - ptch_err_sat - ptch_err_sat;
 	always@(posedge clk, negedge rst_n) begin
 		if(!rst_n) ptch_p_ff <= 0;
 		else ptch_p_ff <= ptch_p_term;
