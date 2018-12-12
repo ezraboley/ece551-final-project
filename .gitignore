@@ -1,1 +1,6 @@
 *.mpf
+DigitalCore.sv
+*.bak
+work/
+*.qdb
+*.qsf
