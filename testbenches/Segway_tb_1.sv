@@ -55,20 +55,20 @@ Segway iDUT(.clk(clk),.RST_n(RST_n),.LED(),.INERT_SS_n(SS_n),.INERT_MOSI(MOSI),
 //// You need something to send the 'g' for go ////////////////
 UART_tx iTX(.clk(clk),.rst_n(RST_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx_done(cmd_sent));
 
-typedef enum {RIDER_ON, GO, LEAN, BALANCE, LEFT, RIGHT, LEFT_BACK, RIGHT_BACK, ONE_FOOT, FALL, STOP, RESTART} test_t;
+typedef enum {RIDER_ON, GO, LEAN, BALANCE, LEFT, RIGHT, LEFT_BACK, RIGHT_BACK, ONE_FOOT, FALL, STOP, RESTART_STOP} test_t;
 test_t test;
 
-assign turn_lft = iDUT.rght_spd > iDUT.lft_spd;
-assign turn_rght = iDUT.lft_spd > iDUT.rght_spd;
+assign turn_lft = iPHYS.omega_rght > iPHYS.omega_lft;
+assign turn_rght = iPHYS.omega_lft > iPHYS.omega_rght;
 
 initial begin
 	//Initialize values and reset DUT
     	init_Segway;
   	RST_DUT_n;
+	batt_V = 12'hA60;
  
 //Test 1: RIDER_ON - rider steps on, but go command is NOT sent yet
 	test = RIDER_ON;
-	clock(50);
 	ld_cell_lft = 12'h156;
 	ld_cell_rght = 12'h156;
 	
@@ -83,15 +83,19 @@ initial begin
 	clock(500);
 
 	check("pwr_up",1,iDUT.pwr_up);
-	check("pwr_up",0,iPHYS.any_are_one);	
 
 //Test 3: LEAN - rider leans forward (extreme value to test correction) 
 	test = LEAN;
 	rider_lean = 16'h1fff;
-	clock(1000000);
+	clock(100000);
+
+	check("ovr_spd",1,iDUT.ovr_spd);
+
+	clock(900000);
 	rider_lean = 0;
 	clock(1000000);
 	
+	check("ovr_spd",0,iDUT.ovr_spd);
 	check_range("theta_platform", -750, 750, iPHYS.theta_platform);
 
 //Test 4: BALANCE - gradually have rider lean forward then backward 
@@ -127,6 +131,8 @@ initial begin
 	clock(500000);
 
 	check("turn_lft",1,turn_lft);	
+	check("rght_rev",0,iDUT.iMTRD.rght_rev);
+	check("lft_rev",0,iDUT.iMTRD.lft_rev);
 
 //Test 6: RIGHT - turn right
 	test = RIGHT;
@@ -140,6 +146,8 @@ initial begin
 	clock(500000);
 
 	check("turn_rght",1,turn_rght);	
+	check("rght_rev",0,iDUT.iMTRD.rght_rev);
+	check("lft_rev",0,iDUT.iMTRD.lft_rev);	
 
 //Test 7: LEFT_BACK - turn 'left' while leaning back
 	test = LEFT_BACK;
@@ -155,7 +163,8 @@ initial begin
 	clock(500000);
 
 	check("turn_lft",1,turn_lft);
-	//check("",1,turn_rght);			
+	check("rght_rev",1,iDUT.iMTRD.rght_rev);
+	check("lft_rev",1,iDUT.iMTRD.lft_rev);				
 
 //Test 8: RIGHT_BACK - turn 'right' while leaning back
 	test = RIGHT_BACK;
@@ -168,7 +177,10 @@ initial begin
 	ld_cell_rght = 12'h200;
 	clock(500000);
 
-	//check("turn_rght",1,turn_rght);		
+	check("turn_rght",1,turn_rght);
+	check("rght_rev",1,iDUT.iMTRD.rght_rev);
+	check("lft_rev",1,iDUT.iMTRD.lft_rev);			
+		
 
 //Test 9: ONE_FOOT - have rider on segway with only one foot
 	test = ONE_FOOT;
@@ -181,11 +193,16 @@ initial begin
 	ld_cell_rght = 12'h145;	
 	clock(35000);
 	
+	check("en_steer",0,iDUT.iDC.iENSTR.en_steer);
+
 //Test 10: FALL - simulate rider falling off segway
 	test = FALL;
 	ld_cell_lft = 0;
 	ld_cell_rght = 0;
 	clock(35000);
+
+	check("en_steer",0,iDUT.iDC.iENSTR.en_steer);
+	check("rider_off",1,iDUT.rider_off);
 
 //Test 11: STOP - send stop command to segway after rider has fallen off
 	test = STOP;
@@ -193,11 +210,16 @@ initial begin
 	repeat(10)@(posedge iDUT.iDC.iINERT.wrt);
 	clock(500);
 
-//Test 12: RESTART - have segway power up again by sending go command
-	test = RESTART;
+	check("pwr_up",0,iDUT.pwr_up);
+
+//Test 12: RESTART - have segway power up again by sending go command then stop it properly
+	test = RESTART_STOP;
 	send_g;
 	repeat(10)@(posedge iDUT.iDC.iINERT.wrt);
 	clock(500);
+
+	check("en_steer",0,iDUT.iDC.iENSTR.en_steer);
+	check("pwr_up",1,iDUT.pwr_up);
 
 	//Rider steps on and leans forward slightly
 	ld_cell_lft = 12'h240;
@@ -205,7 +227,25 @@ initial begin
 	clock(35000);
 	rider_lean = 12'h0500;
 	clock(35000);
+	batt_V = 12'h500;
+	clock(500);
 
+	check("batt_low",1,iDUT.batt_low);
+	check("en_steer",1,iDUT.iDC.iENSTR.en_steer);
+
+	send_s;
+	repeat(10)@(posedge iDUT.iDC.iINERT.wrt);
+	clock(500);
+
+	check("pwr_up",1,iDUT.pwr_up);
+
+	ld_cell_lft = 0;
+	ld_cell_rght = 0;
+	clock(35000);
+
+	check("pwr_up",1,iDUT.pwr_up);
+
+  $display("YAHOO! All tests passed");
   $stop();
 end
 
