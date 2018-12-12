@@ -36,7 +36,7 @@ module en_steer(clk, rst_n, lft_ld, rght_ld, en_steer, rider_off, ld_cell_diff);
 
   //assign statements
   assign ld_cell_diff = lft_ld - rght_ld;
-  assign diff_abs = ld_cell_diff[11] ? (~ld_cell_diff[10:0] + 1) : ld_cell_diff[10:0]; //[10:0]
+  assign diff_abs = ld_cell_diff[11] ? (~ld_cell_diff + 1) : ld_cell_diff; //[10:0]
   assign diff_gt_1_4 = diff_abs > (lft_ld + rght_ld)>>2; //shift rather than /4
   assign diff_gt_15_16 = diff_abs > (lft_ld + rght_ld) - ((lft_ld + rght_ld)>>4); //shift rather than 15/6
   assign sum_gt_min = (lft_ld + rght_ld) > MIN_RIDER_WEIGHT ? 1 : 0;
