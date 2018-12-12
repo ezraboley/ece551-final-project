@@ -143,6 +143,7 @@ module inert_intf(ptch, vld, SCLK, SS_n, MOSI, MISO, INT, clk, rst_n);
             	   vld = 1;
             	   nxt_state = IDLE;
         	end
+            default: nxt_state = INIT1;
     		endcase    
 	end
 
