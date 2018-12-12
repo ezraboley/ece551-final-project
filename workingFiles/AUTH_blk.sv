@@ -33,13 +33,15 @@ module AUTH_blk(pwr_up, clk, rst_n, rider_off, RX);
 			PWR1:
 			begin
 				pwr_up = 1;
-				if(rx_rdy && stop && rider_off) begin
-					next_state = WAIT;
-					clr_rx_rdy = 1;
-				end
-				else if(rx_rdy && stop) begin
-					next_state = PWR2;
-					clr_rx_rdy = 1;
+				if(rx_rdy && stop) begin
+					if(rider_off) begin
+						next_state = WAIT;
+						clr_rx_rdy = 1;
+					end
+					else begin
+						next_state = PWR2;
+						clr_rx_rdy = 1;
+					end
 				end
 				else next_state = state;
 			end
