@@ -22,7 +22,7 @@ reg [11:0] batt_V;		// battery voltage
 wire cmd_sent;
 // Perhaps more needed?
 //counter for rider_lean
-reg NEWTEST;
+reg turn_lft, turn_rght;
 reg [12:0] i;
 ////////////////////////////////////////////////////////////////
 // Instantiate Physical Model of Segway with Inertial sensor //
@@ -57,6 +57,10 @@ UART_tx iTX(.clk(clk),.rst_n(RST_n),.TX(RX_TX),.trmt(send_cmd),.tx_data(cmd),.tx
 
 typedef enum {RIDER_ON, GO, LEAN, BALANCE, LEFT, RIGHT, LEFT_BACK, RIGHT_BACK, ONE_FOOT, FALL, STOP, RESTART} test_t;
 test_t test;
+
+assign turn_lft = iDUT.rght_spd > iDUT.lft_spd;
+assign turn_rght = iDUT.lft_spd > iDUT.rght_spd;
+
 initial begin
 	//Initialize values and reset DUT
     	init_Segway;
@@ -70,18 +74,25 @@ initial begin
 	
 	clock(1500);
 
+	check("pwr_up",0,iDUT.pwr_up);
+
 //Test 2: GO - send go command to power up the segway 
 	test = GO;
 	send_g;
 	repeat(10)@(posedge iDUT.iDC.iINERT.wrt);
 	clock(500);
 
+	check("pwr_up",1,iDUT.pwr_up);
+	check("pwr_up",0,iPHYS.any_are_one);	
+
 //Test 3: LEAN - rider leans forward (extreme value to test correction) 
+	test = LEAN;
 	rider_lean = 16'h1fff;
-	clock(800000);
+	clock(1000000);
 	rider_lean = 0;
-	clock(800000);
+	clock(1000000);
 	
+	check_range("theta_platform", -750, 750, iPHYS.theta_platform);
 
 //Test 4: BALANCE - gradually have rider lean forward then backward 
 	test = BALANCE;
@@ -98,66 +109,77 @@ initial begin
 	end
 	clock(5); 
 	rider_lean = 0;
-	clock(500);
+	clock(5000000);
+
+	check_range("theta_platform", -750, 750, iPHYS.theta_platform);
 
 //Test 5: LEFT - turn left
 	test = LEFT;
 	rider_lean = 16'h0A60;
-	clock(350000);
+	clock(35000);
 	ld_cell_lft = 12'h200;
 	ld_cell_rght = 12'h140;
-	clock(350000);
+	clock(35000);
 
 	//Straighten out
 	ld_cell_lft = 12'h200;
 	ld_cell_rght = 12'h200;
-	clock(350000);
+	clock(500000);
+
+	check("turn_lft",1,turn_lft);	
 
 //Test 6: RIGHT - turn right
 	test = RIGHT;
 	ld_cell_lft = 12'h140;
 	ld_cell_rght = 12'h200;
-	clock(350000);
+	clock(35000);
 	
 	//Straighten out
 	ld_cell_lft = 12'h200;
 	ld_cell_rght = 12'h200;
-	clock(350000);
+	clock(500000);
+
+	check("turn_rght",1,turn_rght);	
 
 //Test 7: LEFT_BACK - turn 'left' while leaning back
 	test = LEFT_BACK;
 	rider_lean = -16'h0A60;
-	clock(350000);
+	clock(35000);
 	ld_cell_lft = 12'h200;
 	ld_cell_rght = 12'h140;
-	clock(350000);
+	clock(35000);
 	
 	//Straighten out
 	ld_cell_lft = 12'h200;
 	ld_cell_rght = 12'h200;
-	clock(350000);
+	clock(500000);
+
+	check("turn_lft",1,turn_lft);
+	//check("",1,turn_rght);			
 
 //Test 8: RIGHT_BACK - turn 'right' while leaning back
 	test = RIGHT_BACK;
 	ld_cell_lft = 12'h140;
 	ld_cell_rght = 12'h200;
-	clock(350000);
+	clock(35000);
 	
 	//Straighten out
 	ld_cell_lft = 12'h200;
 	ld_cell_rght = 12'h200;
-	clock(350000);
+	clock(500000);
+
+	//check("turn_rght",1,turn_rght);		
 
 //Test 9: ONE_FOOT - have rider on segway with only one foot
 	test = ONE_FOOT;
 	ld_cell_lft = 12'h240;
 	ld_cell_rght = 12'h0;
-	clock(350000);
+	clock(35000);
 
 	//Redistribute weight
 	ld_cell_lft = 12'h140;
 	ld_cell_rght = 12'h145;	
-	clock(350000);
+	clock(35000);
 	
 //Test 10: FALL - simulate rider falling off segway
 	test = FALL;
@@ -182,7 +204,7 @@ initial begin
 	ld_cell_rght = 12'h240;
 	clock(35000);
 	rider_lean = 12'h0500;
-	clock(350000);
+	clock(35000);
 
   $stop();
 end

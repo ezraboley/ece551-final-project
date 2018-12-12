@@ -63,7 +63,7 @@ module balance_cntrl(clk, rst_n, too_fast, vld, ptch, ld_cell_diff, lft_spd, lft
 
   //P term
 	assign ptch_err_sat = ptch[15] ? (&ptch[14:9] ? {ptch[15],ptch[8:0]} : 10'h200) : (|ptch[14:9] ? 10'h1FF : ptch[9:0]); //10 bit saturation of ptch
-	assign ptch_p_term = ptch_err_sat * ($signed(P_COEFF));
+	assign ptch_p_term = (ptch_err_sat <<< 4) - ptch_err_sat - ptch_err_sat;
 	always@(posedge clk, negedge rst_n) begin
 		if(!rst_n) ptch_p_ff <= 0;
 		else ptch_p_ff <= ptch_p_term;
@@ -128,11 +128,14 @@ module balance_cntrl(clk, rst_n, too_fast, vld, ptch, ld_cell_diff, lft_spd, lft
 	assign lft_min = lft_trq_ff[15] ? (~MIN_DUTY + 1) : MIN_DUTY; //Based on sign of lft_trq, change sign of MIN_duty to follow addition/subtraction
 	assign rght_min = rght_trq_ff[15] ? (~MIN_DUTY + 1) : MIN_DUTY; //Based on sign of rght_trq, change sign of MIN_duty to follow addition/subtraction
 	assign lft_shaped = lft_gt ? (lft_trq_ff + lft_min) : (lft_trq_ff<<<4) - lft_trq_ff;
+	//assign lft_shaped = lft_gt ? (lft_trq_ff + lft_min) : (lft_trq_ff * ($signed(GAIN_MULTIPLIER)));
+
 	always@(posedge clk, negedge rst_n) begin
 		if(!rst_n) lft_shaped_ff <= 0;
 		else lft_shaped_ff <= lft_shaped;
 	end
-	assign rght_shaped = rght_gt ? (rght_trq_ff + rght_min) : (rght_trq_ff<<<4) - rght_trq_ff;
+
+	assign rght_shaped = rght_gt ? (rght_trq_ff + rght_min) : (rght_trq_ff<<<4) - rght_trq_ff; //(rght_trq_ff * ($signed(GAIN_MULTIPLIER)));
 	always@(posedge clk, negedge rst_n) begin
 		if(!rst_n) rght_shaped_ff <= 0;
 		else rght_shaped_ff <= rght_shaped;
