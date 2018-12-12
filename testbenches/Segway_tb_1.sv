@@ -102,11 +102,11 @@ initial begin
 
 //Test 5: LEFT - turn left
 	test = LEFT;
-	rider_lean = 16'h0500;
-	clock(35000);
+	rider_lean = 16'h0A60;
+	clock(350000);
 	ld_cell_lft = 12'h200;
 	ld_cell_rght = 12'h140;
-	clock(35000);
+	clock(350000);
 
 	//Straighten out
 	ld_cell_lft = 12'h200;
@@ -117,7 +117,7 @@ initial begin
 	test = RIGHT;
 	ld_cell_lft = 12'h140;
 	ld_cell_rght = 12'h200;
-	clock(35000);
+	clock(350000);
 	
 	//Straighten out
 	ld_cell_lft = 12'h200;
@@ -126,8 +126,8 @@ initial begin
 
 //Test 7: LEFT_BACK - turn 'left' while leaning back
 	test = LEFT_BACK;
-	rider_lean = -16'h1500;
-	clock(35000);
+	rider_lean = -16'h0A60;
+	clock(350000);
 	ld_cell_lft = 12'h200;
 	ld_cell_rght = 12'h140;
 	clock(350000);
