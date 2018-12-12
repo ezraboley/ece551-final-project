@@ -61,9 +61,10 @@ check_design
 report_area
 report_timing -delay max
 report_timing -delay min
+set_fix_hold clk
 
 ungroup -all -flatten
-set_fix_hold clk
+
 compile -map_effort high
 
 check_design
