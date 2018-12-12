@@ -228,7 +228,7 @@ initial begin
 	rider_lean = 12'h0500;
 	clock(35000);
 	batt_V = 12'h500;
-	clock(500);
+	clock(35000);
 
 	check("batt_low",1,iDUT.batt_low);
 	check("en_steer",1,iDUT.iDC.iENSTR.en_steer);
@@ -243,7 +243,7 @@ initial begin
 	ld_cell_rght = 0;
 	clock(35000);
 
-	check("pwr_up",1,iDUT.pwr_up);
+	check("pwr_up",0,iDUT.pwr_up);
 
   $display("YAHOO! All tests passed");
   $stop();
