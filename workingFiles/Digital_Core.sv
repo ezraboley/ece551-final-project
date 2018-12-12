@@ -19,7 +19,7 @@ inert_intf iINERT(.ptch(ptch), .vld(vld), .SCLK(SCLK), .SS_n(SS_n), .MOSI(MOSI),
 
 balance_cntrl iBAL(.clk(clk), .rst_n(rst_n), .too_fast(ovr_spd), .vld(vld), .ptch(ptch), .ld_cell_diff(ld_cell_diff), .lft_spd(lft_spd), .lft_rev(lft_rev), .rght_spd(rght_spd), .rght_rev(rght_rev), .rider_off(rider_off), .en_steer(en_steer), .pwr_up(pwr_up));
 
-en_steer #(.fast_sim(0)) iENSTR(.clk(clk), .rst_n(rst_n), .lft_ld(lft_ld), .rght_ld(rght_ld), .en_steer(en_steer), .rider_off(rider_off), .ld_cell_diff(ld_cell_diff));
+en_steer #(.fast_sim(1)) iENSTR(.clk(clk), .rst_n(rst_n), .lft_ld(lft_ld), .rght_ld(rght_ld), .en_steer(en_steer), .rider_off(rider_off), .ld_cell_diff(ld_cell_diff));
 
 //determines batt_low
 assign batt_low = batt < 12'h800 ? 1 : 0;
