@@ -11,7 +11,7 @@ module UART_rcv(RX, clk, rst_n, clr_rdy, rx_data, rdy);
 	reg receive, ff_rx, start, set_rdy, q;
     wire shift;
 
-	assign shift = (baud_cnt == 0); //Data should only be shifted after the baud cycle is over
+	assign shift = (baud_cnt == 0) ? 1 : 0; //Data should only be shifted after the baud cycle is over
 	assign rx_data = rx_shft_reg[7:0];
 	
 	//Flop to handle state transitions
