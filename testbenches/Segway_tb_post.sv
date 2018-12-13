@@ -1,3 +1,4 @@
+`timescale 1ns/1ps 
 module Segway_tb_post();
 
 //// Interconnects to DUT/support defined as type wire /////
@@ -69,12 +70,12 @@ initial begin
 
 //Rider leans forward (extreme value to test correction) 
 	test = LEAN;
-	rider_lean = 16'h1fff;
-	clock(1000000);
+	rider_lean = 16'h1500;
+	clock(25000);
 	rider_lean = 0;
-	clock(1000000);
+	clock(250000);
 	
-	check_range("theta_platform", -750, 750, iPHYS.theta_platform);
+	check_range("theta_platform", -1000, 1000, iPHYS.theta_platform);
 
   $display("YAY! Test passed");
   $stop();
